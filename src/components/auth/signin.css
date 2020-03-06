@@ -1,0 +1,76 @@
+:root {
+  --main-logo-color: #fbd800;
+}
+
+.mycontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 89.8vh;
+  background-color: #1e1e28;
+}
+
+form {
+  padding: 10px;
+  /* margin-top: 60px; */
+  width: 360px;
+  background-color: #282832 !important;
+}
+
+form button,
+form h5 {
+  /* margin: 20px 0; */
+}
+
+input[type='text']:not(.browser-default):focus:not([readonly]),
+input[type='email']:not(.browser-default):focus:not([readonly]),
+input[type='password']:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-color: var(--main-logo-color);
+  box-shadow: none;
+}
+
+input[type='text']:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label,
+input[type='email']:not(.browser-default):focus:not([readonly]) + label,
+input[type='password']:not(.browser-default):focus:not([readonly]) + label {
+  background-color: transparent !important;
+  color: #ec407a !important;
+}
+label {
+  color: white !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  /* border: 1px solid transparent; */
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #282832 inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+.label-low {
+  padding: 0px;
+  margin: 0px;
+  color: #44494d;
+}
+
+.mybtn {
+  width: 50%;
+  margin: 10px 75px !important;
+  background-color: none !important;
+  border: 1px solid var(--main-logo-color) !important;
+  border-radius: 5px;
+}
+.mybtn1 {
+  width: 30%;
+  margin: 10px 155px !important;
+  background-color: none !important;
+  border: 1px solid var(--main-logo-color) !important;
+  border-radius: 5px;
+}
