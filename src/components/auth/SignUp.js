@@ -78,7 +78,6 @@ class SignUp extends Component {
             style={{
               display: 'flex',
               alignItems: 'center',
-
               margin: '15px'
             }}
           >

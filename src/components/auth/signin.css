@@ -6,15 +6,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 89.8vh;
+  height: 100vh;
   background-color: #1e1e28;
 }
 
 form {
-  padding: 10px;
+  padding: 10px 20px;
   /* margin-top: 60px; */
   width: 360px;
   background-color: #282832 !important;
+  color: white;
 }
 
 form button,
@@ -26,6 +27,7 @@ input[type='text']:not(.browser-default):focus:not([readonly]),
 input[type='email']:not(.browser-default):focus:not([readonly]),
 input[type='password']:not(.browser-default):focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
+  color: white !important;
   border-color: var(--main-logo-color);
   box-shadow: none;
 }
@@ -50,12 +52,11 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   /* border: 1px solid transparent; */
+  color: white !important;
   -webkit-text-fill-color: white;
   -webkit-box-shadow: 0 0 0px 1000px #282832 inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
-
-
 
 .label-low {
   padding: 0px;
