@@ -72,7 +72,7 @@ class SignUp extends Component {
     const { auth, authError } = this.props;
     if (auth.uid) return <Redirect to="/" />;
     return (
-      <div className="mycontainer">
+      <div className="mycontainer1">
         <div>
           <div
             style={{
@@ -98,7 +98,7 @@ class SignUp extends Component {
             </span>
           </div>
           <form onSubmit={this.handleSubmit} style={{ width: '480px' }}>
-            <div style={{ display: 'flex' }}>
+            <div className="form-ele">
               <div style={{ margin: '0 10px', width: '100%' }}>
                 <div className="input-field">
                   <label htmlFor="email">Email</label>
@@ -139,7 +139,7 @@ class SignUp extends Component {
                     <ClipLoader
                       size={120}
                       //size={"150px"} this also works
-                      css={{ marginLeft: '20px' }}
+                      css={{ marginLeft: '30px' }}
                       color={'#fbd800'}
                       loading={this.state.isUploading}
                     />
