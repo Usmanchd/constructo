@@ -49,7 +49,7 @@ class SignUp extends Component {
             <span style={{ color: 'white', margin: '0 15px' }}>
               <span style={{ fontSize: '30px' }}>Sign Up</span>
               <br />
-              <span>Sign up the Constructo web app</span>
+              <span>Registrace do Constructo webové aplikace</span>
             </span>
           </div>
           <form onSubmit={this.handleSubmit}>
@@ -61,7 +61,7 @@ class SignUp extends Component {
                 onChange={this.handleChange}
                 required
               />
-              <p className="label-low"> Your registration email</p>
+              <p className="label-low">Váš registrační email</p>
             </div>
             <div className="input-field">
               <label htmlFor="password">Password</label>
@@ -72,7 +72,7 @@ class SignUp extends Component {
                 onChange={this.handleChange}
                 required
               />
-              <p className="label-low">Your strong password</p>
+              <p className="label-low">Vaše silné heslo</p>
             </div>
             <div className="input-field">
               <button

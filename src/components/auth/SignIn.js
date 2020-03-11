@@ -47,7 +47,7 @@ class SignIn extends Component {
             <span style={{ color: 'white', margin: '0 15px' }}>
               <span style={{ fontSize: '30px' }}>Sign In</span>
               <br />
-              <span>Sign in the Constructo web app</span>
+              <span>Přihlášení do Constructo webové aplikace</span>
             </span>
           </div>
           <form onSubmit={this.handleSubmit}>
