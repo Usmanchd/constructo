@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 const Navbar = props => {
   const { auth, profile } = props;
-  // console.log(auth);
+
   const links = auth.uid ? (
     <SignedInLinks profile={profile} />
   ) : (
@@ -27,7 +26,6 @@ const Navbar = props => {
 };
 
 const mapStateToProps = state => {
-  // console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
-import userIcon from '../../assets/user-icon-silhouette.jpg';
 import firebase from '../../config/fbConfig';
 import FileUploader from 'react-firebase-file-uploader';
 import { Icon } from 'react-icons-kit';
@@ -44,7 +43,7 @@ class SignUp extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     // this.setState({ loading: true });
-    console.log(this.state);
+
     this.props.signUp(this.state);
   };
 
@@ -54,7 +53,6 @@ class SignUp extends Component {
   handleProgress = progress => this.setState({ progress });
   handleUploadError = error => {
     this.setState({ isUploading: false });
-    console.error(error);
   };
   handleUploadSuccess = filename => {
     this.setState({ avatar: filename, progress: 100 });
@@ -71,7 +69,7 @@ class SignUp extends Component {
 
   render() {
     const { auth, authError, tempEP } = this.props;
-    console.log(tempEP);
+
     if (auth.uid) return <Redirect to="/" />;
 
     if (authError === 'Email Already Exists' || tempEP === undefined)

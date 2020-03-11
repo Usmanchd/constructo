@@ -38,7 +38,7 @@ export const signUp = newUser => {
     dispatch(loading());
     const firebase = getFirebase();
     const firestore = getFirestore();
-    console.log(newUser);
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password)
@@ -105,8 +105,7 @@ export const handleTempEP = temp => (dispatch, getState, { getFirestore }) => {
         .then(_users => {
           const users = _users.docs.map(doc => doc.data());
           const user = users.filter(_u => _u.email === email);
-          console.log(user);
-          console.log(user.length);
+      
           if (user.length === 0) dispatch({ type: 'TEMP_E_P', payload: temp });
           else {
             let err = { message: 'Email Already Exists' };

@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import { connect } from 'react-redux';
-
 import { Redirect } from 'react-router-dom';
-
 import { getAllUsers } from '../../store/actions/authActions';
 
-function AdminPage({ auth, getAllUsers, users }) {
-  getAllUsers();
-
-  if (!auth.uid) {
-    return <Redirect to="/signin" />;
+class AdminPage extends React.Component {
+  componentDidMount() {
+    this.props.getAllUsers();
   }
-  return (
-    <div>
-      <h1 className="center">Admin</h1>
-      <h3>List Of All Users</h3>
-      {users && <UserList users={users} />}
-    </div>
-  );
+
+  render() {
+    const { auth, users } = this.props;
+    if (!auth.uid) {
+      return <Redirect to="/signin" />;
+    }
+    return (
+      <div>
+        <h1 className="center">Admin</h1>
+        <h3>List Of All Users</h3>
+        {users && <UserList users={users} />}
+      </div>
+    );
+  }
 }
 
 const UserList = ({ users }) => (
@@ -52,7 +54,6 @@ const UserList = ({ users }) => (
 );
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     users: state.auth.users

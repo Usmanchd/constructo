@@ -10,7 +10,7 @@ const AccountPage = ({ auth, profile }) => {
   if (!auth.uid) {
     return <Redirect to="/signin" />;
   }
-  console.log(profile);
+
   return (
     <div>
       <h1>User Account</h1>
@@ -57,7 +57,6 @@ const AccountPage = ({ auth, profile }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile

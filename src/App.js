@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import LandingPage from '../Landing';
-
-// import PasswordForgetPage from '../PasswordForget';
 import HomePage from './components/Home';
 import AccountPage from './components/Account';
 import AdminPage from './components/Admin';
@@ -29,8 +26,6 @@ class App extends Component {
         >
           <ClipLoader
             size={120}
-            //size={"150px"} this also works
-
             color={'#fbd800'}
             loading={this.props.loading}
           />
@@ -45,7 +40,7 @@ class App extends Component {
               <Route exact path={ROUTES.LANDING} component={Dashboard} />
               <Route path={ROUTES.SIGN_UP} component={SignUp} />
               <Route path={ROUTES.SIGN_IN} component={SignIn} />
-              <Route path="/forward" component={SignUpP2} />
+              <Route path={ROUTES.FORWARD} component={SignUpP2} />
               <Route path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
