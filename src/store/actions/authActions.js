@@ -72,7 +72,6 @@ export const signUp = newUser => {
 };
 
 export const getAllUsers = () => (dispatch, getState, { getFirestore }) => {
-  dispatch(loading());
   const firestore = getFirestore();
   firestore
     .collection('users')
@@ -80,7 +79,6 @@ export const getAllUsers = () => (dispatch, getState, { getFirestore }) => {
     .then(_users => {
       const users = _users.docs.map(doc => doc.data());
       dispatch({ type: 'GET_ALL_USERS', payload: users });
-      dispatch(end_loading());
     });
 };
 
