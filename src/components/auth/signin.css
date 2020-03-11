@@ -1,6 +1,9 @@
 :root {
   --main-logo-color: #fbd800;
 }
+* {
+  font-family: 'Poppins', sans-serif;
+}
 
 .mycontainer {
   display: flex;

@@ -49,7 +49,7 @@ class SignUp extends Component {
             <span style={{ color: 'white', margin: '0 15px' }}>
               <span style={{ fontSize: '30px' }}>Sign Up</span>
               <br />
-              <span>Registrace do Constructo webové aplikace</span>
+              <span>Registrace do Constructo <br />webové aplikace</span>
             </span>
           </div>
           <form onSubmit={this.handleSubmit}>
