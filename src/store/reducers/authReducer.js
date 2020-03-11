@@ -1,5 +1,6 @@
 const initState = {
-  authError: null
+  authError: null,
+  loading: false
 };
 
 const authReducer = (state = initState, action) => {
@@ -41,6 +42,29 @@ const authReducer = (state = initState, action) => {
         users: [...action.payload]
       };
 
+    case 'TEMP_E_P':
+      return {
+        ...state,
+        tempEP: action.payload
+      };
+
+    case 'LOADING':
+      return {
+        ...state,
+        loading: true
+      };
+
+    case 'END_LOADING':
+      return {
+        ...state,
+        loading: false
+      };
+
+    case 'REMOVE_ERR':
+      return {
+        ...state,
+        authError: null
+      };
     default:
       return state;
   }

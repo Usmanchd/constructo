@@ -10,26 +10,55 @@ import Navbar from './components/layout/Navbar';
 import Dashboard from './components/dashboard/Dashboard';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
+import SignUpP2 from './components/auth/SignUpP2';
+import { connect } from 'react-redux';
 import * as ROUTES from './constants/routes';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 class App extends Component {
   render() {
-    return (
-      <BrowserRouter>
-        <div className="App">
-          <Navbar />
-          <Switch>
-            <Route exact path={ROUTES.LANDING} component={Dashboard} />
-            <Route path={ROUTES.SIGN_UP} component={SignUp} />
-            <Route path={ROUTES.SIGN_IN} component={SignIn} />
-            <Route path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
-          </Switch>
+    if (this.props.loading) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh'
+          }}
+        >
+          <ClipLoader
+            size={120}
+            //size={"150px"} this also works
+
+            color={'#fbd800'}
+            loading={this.props.loading}
+          />
         </div>
-      </BrowserRouter>
-    );
+      );
+    } else
+      return (
+        <BrowserRouter>
+          <div className="App">
+            <Navbar />
+            <Switch>
+              <Route exact path={ROUTES.LANDING} component={Dashboard} />
+              <Route path={ROUTES.SIGN_UP} component={SignUp} />
+              <Route path={ROUTES.SIGN_IN} component={SignIn} />
+              <Route path="/forward" component={SignUpP2} />
+              <Route path={ROUTES.HOME} component={HomePage} />
+              <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+              <Route path={ROUTES.ADMIN} component={AdminPage} />
+            </Switch>
+          </div>
+        </BrowserRouter>
+      );
   }
 }
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading
+  };
+};
 
-export default App;
+export default connect(mapStateToProps)(App);

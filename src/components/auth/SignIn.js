@@ -47,14 +47,14 @@ class SignIn extends Component {
             <span style={{ color: 'white', margin: '0 15px' }}>
               <span style={{ fontSize: '30px' }}>Sign In</span>
               <br />
-              <span>dummy text</span>
+              <span>Sign in the Constructo web app</span>
             </span>
           </div>
           <form onSubmit={this.handleSubmit}>
             <div className="input-field">
               <label htmlFor="email">Email</label>
               <input type="email" id="email" onChange={this.handleChange} />
-              <p className="label-low">this dummy text</p>
+              <p className="label-low">Your Login email</p>
             </div>
             <div className="input-field">
               <label htmlFor="password">Password</label>
@@ -64,7 +64,7 @@ class SignIn extends Component {
                 id="password"
                 onChange={this.handleChange}
               />
-              <p className="label-low">this dummy text</p>
+              <p className="label-low"> Your Login password</p>
             </div>
             <div className="input-field">
               <button className="btn mybtn transparent lighten-2 z-depth-0">

@@ -80,12 +80,21 @@ select:-webkit-autofill:focus {
   border: 1px solid var(--main-logo-color) !important;
   border-radius: 5px;
 }
+.mybtn:hover {
+  background-color: var(--main-logo-color) !important;
+  color: black;
+}
 .mybtn1 {
   width: 30%;
   margin: 10px 155px !important;
   background-color: none !important;
   border: 1px solid var(--main-logo-color) !important;
   border-radius: 5px;
+}
+
+.mybtn1:hover {
+  background-color: var(--main-logo-color) !important;
+  color: black;
 }
 
 .form-ele {
