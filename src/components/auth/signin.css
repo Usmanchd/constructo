@@ -35,6 +35,16 @@ form h5 {
   
 } */
 
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea.materialize-textarea {
+  color: white !important;
+  border-right: 1px solid #9c9c9d !important;
+  padding: 0 2px !important;
+  border-radius: 10px !important;
+  transition: all 0.3s linear 0s !important;
+}
 input[type='text']:not(.browser-default):focus:not([readonly]),
 input[type='email']:not(.browser-default):focus:not([readonly]),
 input[type='password']:not(.browser-default):focus:not([readonly]),
@@ -42,6 +52,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
   color: white !important;
   border-color: var(--main-logo-color);
   box-shadow: none;
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid var(--main-logo-color) !important;
 }
 
 input[type='text']:not(.browser-default):focus:not([readonly]) + label,
@@ -63,7 +76,6 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  /* border: 1px solid transparent; */
   color: white !important;
   -webkit-text-fill-color: white;
   -webkit-box-shadow: 0 0 0px 1000px #282832 inset !important;
@@ -134,4 +146,9 @@ select:-webkit-autofill:focus {
     border: 1px solid var(--main-logo-color) !important;
     border-radius: 5px;
   }
+}
+
+.right li a:hover {
+  background-color: var(--main-logo-color) !important;
+  color: black !important;
 }
