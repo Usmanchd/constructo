@@ -40,10 +40,10 @@ input[type='email'],
 input[type='password'],
 textarea.materialize-textarea {
   color: white !important;
-  border-right: 1px solid #9c9c9d !important;
+  /* border-right: 1px solid #9c9c9d !important;
   padding: 0 2px !important;
-  border-radius: 10px !important;
-  transition: all 0.3s linear 0s !important;
+  border-radius: 0px 20px 20px 0px !important;
+  transition: all 0.3s linear 0s !important; */
 }
 input[type='text']:not(.browser-default):focus:not([readonly]),
 input[type='email']:not(.browser-default):focus:not([readonly]),
@@ -52,9 +52,9 @@ textarea.materialize-textarea:focus:not([readonly]) {
   color: white !important;
   border-color: var(--main-logo-color);
   box-shadow: none;
-  border: none !important;
+  /* border: none !important;
   border-radius: 0px !important;
-  border-bottom: 1px solid var(--main-logo-color) !important;
+  border-bottom: 1px solid var(--main-logo-color) !important; */
 }
 
 input[type='text']:not(.browser-default):focus:not([readonly]) + label,
