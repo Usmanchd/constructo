@@ -32,7 +32,6 @@ class SignUp extends Component {
             style={{
               display: 'flex',
               alignItems: 'center',
-
               margin: '15px'
             }}
           >
@@ -49,7 +48,10 @@ class SignUp extends Component {
             <span style={{ color: 'white', margin: '0 15px' }}>
               <span style={{ fontSize: '30px' }}>Sign Up</span>
               <br />
-              <span>Registrace do Constructo <br />webové aplikace</span>
+              <span>
+                Registrace do Constructo <br />
+                webové aplikace
+              </span>
             </span>
           </div>
           <form onSubmit={this.handleSubmit}>
@@ -65,12 +67,12 @@ class SignUp extends Component {
             </div>
             <div className="input-field">
               <label htmlFor="password">Password</label>
-
               <input
                 type="password"
                 id="password"
                 onChange={this.handleChange}
                 required
+                minLength="6"
               />
               <p className="label-low">Vaše silné heslo</p>
             </div>

@@ -9,55 +9,55 @@ const authReducer = (state = initState, action) => {
       console.log('login error');
       return {
         ...state,
-        authError: 'Login failed'
+        authError: action.payload.message,
+        loading: false
       };
 
     case 'LOGIN_SUCCESS':
       console.log('login success');
       return {
         ...state,
-        authError: null
+        authError: null,
+        loading: false
       };
 
     case 'SIGNOUT_SUCCESS':
       console.log('signout success');
-      return state;
+      return { state, loading: false };
 
     case 'SIGNUP_SUCCESS':
       console.log('signup success');
       return {
         ...state,
-        authError: null
+        authError: null,
+        loading: false
       };
 
     case 'SIGNUP_ERROR':
       return {
         ...state,
-        authError: action.err.message
+        authError: action.payload.message,
+        loading: false
       };
 
     case 'GET_ALL_USERS':
       return {
         ...state,
-        users: [...action.payload]
+        users: [...action.payload],
+        loading: false
       };
 
     case 'TEMP_E_P':
       return {
         ...state,
-        tempEP: action.payload
+        tempEP: action.payload,
+        loading: false
       };
 
     case 'LOADING':
       return {
         ...state,
         loading: true
-      };
-
-    case 'END_LOADING':
-      return {
-        ...state,
-        loading: false
       };
 
     case 'REMOVE_ERR':

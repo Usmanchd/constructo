@@ -108,7 +108,12 @@ class SignUp extends Component {
               <div style={{ margin: '0 10px', width: '100%' }}>
                 <div className="input-field">
                   <label htmlFor="Name"> Name</label>
-                  <input type="text" id="Name" onChange={this.handleChange} />
+                  <input
+                    type="text"
+                    id="Name"
+                    onChange={this.handleChange}
+                    required
+                  />
                   <p className="label-low">Your Name</p>
                 </div>
                 <div className="input-field">
@@ -117,6 +122,7 @@ class SignUp extends Component {
                     type="text"
                     id="surname"
                     onChange={this.handleChange}
+                    required
                   />
                   <p className="label-low">Your Last name</p>
                 </div>
@@ -129,7 +135,12 @@ class SignUp extends Component {
                 </div>
                 <div className="input-field">
                   <label htmlFor="phone">Phone</label>
-                  <input type="text" id="phone" onChange={this.handleChange} />
+                  <input
+                    type="text"
+                    id="phone"
+                    onChange={this.handleChange}
+                    required
+                  />
                   <p className="label-low">Your phone number</p>
                 </div>
               </div>

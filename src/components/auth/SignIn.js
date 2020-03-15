@@ -56,7 +56,12 @@ class SignIn extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="input-field">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" onChange={this.handleChange} />
+              <input
+                type="email"
+                id="email"
+                required
+                onChange={this.handleChange}
+              />
               <p className="label-low">Váš registrační email</p>
             </div>
             <div className="input-field">
@@ -66,6 +71,8 @@ class SignIn extends Component {
                 type="password"
                 id="password"
                 onChange={this.handleChange}
+                required
+                minLength="6"
               />
               <p className="label-low">Vaše silné heslo</p>
             </div>

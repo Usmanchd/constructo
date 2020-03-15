@@ -1,20 +1,28 @@
 export const signIn = credentials => {
   return (dispatch, getState, { getFirebase }) => {
-    dispatch(loading());
-    const firebase = getFirebase();
+    if (
+      credentials.email === '' ||
+      credentials.password === '' ||
+      credentials.password.length <= 5
+    ) {
+      let err = { message: 'Password Must be 6 characters Long' };
+      dispatch({ type: 'SIGNUP_ERROR', payload: err });
+      setTimeout(() => dispatch({ type: 'REMOVE_ERR', payload: err }), 2000);
+    } else {
+      dispatch(loading());
+      const firebase = getFirebase();
 
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
-        dispatch({ type: 'LOGIN_SUCCESS' });
-        dispatch(end_loading());
-      })
-      .catch(err => {
-        dispatch({ type: 'LOGIN_ERROR', err });
-        dispatch(end_loading());
-        setTimeout(() => dispatch({ type: 'REMOVE_ERR' }), 2000);
-      });
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(credentials.email, credentials.password)
+        .then(() => {
+          dispatch({ type: 'LOGIN_SUCCESS' });
+        })
+        .catch(err => {
+          dispatch({ type: 'LOGIN_ERROR', payload: err });
+          setTimeout(() => dispatch({ type: 'REMOVE_ERR' }), 3000);
+        });
+    }
   };
 };
 
@@ -28,7 +36,6 @@ export const signOut = () => {
       .signOut()
       .then(() => {
         dispatch({ type: 'SIGNOUT_SUCCESS' });
-        dispatch(end_loading());
       });
   };
 };
@@ -61,11 +68,10 @@ export const signUp = newUser => {
       })
       .then(() => {
         dispatch({ type: 'SIGNUP_SUCCESS' });
-        dispatch(end_loading());
       })
       .catch(err => {
-        dispatch({ type: 'SIGNUP_ERROR', err });
-        dispatch(end_loading());
+        dispatch({ type: 'SIGNUP_ERROR', payload: err });
+
         setTimeout(() => dispatch({ type: 'REMOVE_ERR' }), 2000);
       });
   };
@@ -85,16 +91,13 @@ export const getAllUsers = () => (dispatch, getState, { getFirestore }) => {
 export const loading = () => (dispatch, getState, { getFirestore }) => {
   dispatch({ type: 'LOADING' });
 };
-export const end_loading = () => (dispatch, getState, { getFirestore }) => {
-  dispatch({ type: 'END_LOADING' });
-};
 
 export const handleTempEP = temp => (dispatch, getState, { getFirestore }) => {
   const { email, password } = temp;
   if (email === '' || password === '' || password.length <= 5) {
     let err = { message: 'Password Must be 6 characters Long' };
-    dispatch({ type: 'SIGNUP_ERROR', err });
-    setTimeout(() => dispatch({ type: 'REMOVE_ERR' }), 2000);
+    dispatch({ type: 'SIGNUP_ERROR', payload: err });
+    setTimeout(() => dispatch({ type: 'REMOVE_ERR', payload: err }), 2000);
   } else {
     try {
       dispatch(loading());
@@ -105,15 +108,17 @@ export const handleTempEP = temp => (dispatch, getState, { getFirestore }) => {
         .then(_users => {
           const users = _users.docs.map(doc => doc.data());
           const user = users.filter(_u => _u.email === email);
-      
+
           if (user.length === 0) dispatch({ type: 'TEMP_E_P', payload: temp });
           else {
             let err = { message: 'Email Already Exists' };
-            dispatch({ type: 'SIGNUP_ERROR', err });
+            dispatch({ type: 'SIGNUP_ERROR', payload: err });
           }
-          dispatch(end_loading());
+
           setTimeout(() => dispatch({ type: 'REMOVE_ERR' }), 2000);
         });
-    } catch (error) {}
+    } catch (error) {
+      dispatch(handleTempEP(temp));
+    }
   }
 };
