@@ -77,10 +77,7 @@ class SignUp extends Component {
               <p className="label-low">Vaše silné heslo</p>
             </div>
             <div className="input-field">
-              <button
-                className="btn mybtn transparent lighten-2 z-depth-0"
-                onClick
-              >
+              <button className="btn mybtn transparent lighten-2 z-depth-0">
                 Next
               </button>
 
