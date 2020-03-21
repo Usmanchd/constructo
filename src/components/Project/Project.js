@@ -23,14 +23,6 @@ class Project extends Component {
         <div className="project-main-home">
           <div className="project-main-heading">
             <h4>Current Project Info</h4>
-            <select>
-              <option value="" disabled selected>
-                Choose your option
-              </option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-            <label>Filter</label>
           </div>
           <div className="project-main-subdetails">
             <span>Name</span>
