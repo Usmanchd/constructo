@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
+import './navbar.css';
 
 const Navbar = props => {
   const { auth, profile } = props;
@@ -14,14 +15,19 @@ const Navbar = props => {
   );
 
   return (
-    <nav className="nav-wrapper grey darken-3">
-      <div className="container">
-        <Link to="/" className="brand-logo hidden">
-          Constructo
-        </Link>
+    <React.Fragment>
+      <ul id="dropdown1" class="dropdown-content">
         {links}
-      </div>
-    </nav>
+      </ul>
+      <nav className="nav-wrapper" style={{ backgroundColor: '#282832' }}>
+        <div className="container">
+          <Link to="/" className="brand-logo hidden">
+            Constructo
+          </Link>
+          {links}
+        </div>
+      </nav>
+    </React.Fragment>
   );
 };
 

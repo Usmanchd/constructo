@@ -63,6 +63,7 @@ export const signUp = newUser => {
             email: newUser.email,
             avatarURL: newUser.avatarURL,
             deleted: false,
+            projects: [],
             createdAt: Date.now()
           });
       })

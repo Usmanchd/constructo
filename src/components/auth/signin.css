@@ -78,6 +78,8 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   color: white !important;
   -webkit-text-fill-color: white;
+  box-shadow: 0 0 0px 1000px #282832 inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
   -webkit-box-shadow: 0 0 0px 1000px #282832 inset !important;
   transition: background-color 5000s ease-in-out 0s !important;
 }
@@ -135,7 +137,7 @@ select:-webkit-autofill:focus {
   form {
     /* padding: 10px 20px; */
     /* margin-top: 60px; */
-    width: 95vw !important;
+    width: 85vw !important;
     background-color: #282832 !important;
     color: white;
   }

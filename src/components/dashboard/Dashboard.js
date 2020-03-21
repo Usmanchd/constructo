@@ -2,24 +2,34 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { Redirect } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
+
+import Project from '../Project/Project';
+
+import ProjectList from '../Project/ProjectList';
 
 class Dashboard extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-
+    console.log(`${this.props.match.path}list`, 'hello');
     return (
-      <div className="dashboard container">
-        <h1>Dashboard / Landing Page </h1>
-        <p>Task 1 completed!!</p>
+      <div>
+        <Switch>
+          <Route path="/list">
+            <ProjectList />
+          </Route>
+
+          <Route path="/">
+            <Project />
+          </Route>
+        </Switch>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  
   return {
     auth: state.firebase.auth
   };

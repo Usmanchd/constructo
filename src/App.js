@@ -37,13 +37,13 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Switch>
-              <Route exact path={ROUTES.LANDING} component={Dashboard} />
               <Route path={ROUTES.SIGN_UP} component={SignUp} />
               <Route path={ROUTES.SIGN_IN} component={SignIn} />
               <Route path={ROUTES.FORWARD} component={SignUpP2} />
               <Route path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
+              <Route path={ROUTES.LANDING} component={Dashboard} />
             </Switch>
           </div>
         </BrowserRouter>
