@@ -16,7 +16,7 @@ const Navbar = props => {
 
   return (
     <React.Fragment>
-      <ul id="dropdown1" class="dropdown-content">
+      {/* <ul id="dropdown1" class="dropdown-content">
         {links}
       </ul>
       <nav className="nav-wrapper" style={{ backgroundColor: '#282832' }}>
@@ -26,7 +26,53 @@ const Navbar = props => {
           </Link>
           {links}
         </div>
-      </nav>
+      </nav> */}
+      <div className="nav">
+        <Link to="/" className="brand-logo">
+          <h5>Constructo</h5>
+        </Link>
+        <label for="show-menu" class="show-menu">
+          Show Menu
+        </label>
+        <input type="checkbox" id="show-menu" role="button" />
+        {links}
+        {/* <ul className="menu">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">About ￬</a>
+            <ul class="hidden">
+              <li>
+                <a href="#">Who We Are</a>
+              </li>
+              <li>
+                <a href="#">What We Do</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Portfolio ￬</a>
+            <ul class="hidden">
+              <li>
+                <a href="#">Photography</a>
+              </li>
+              <li>
+                <a href="#">Web & User Interface Design</a>
+              </li>
+              <li>
+                <a href="#">Illustration</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">News</a>
+          </li>
+          <li>
+            <a href="#">Contact</a>
+          </li>
+        </ul> */}
+      </div>
     </React.Fragment>
   );
 };

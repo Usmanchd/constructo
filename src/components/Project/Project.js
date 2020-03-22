@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
+
+
 import './project.css';
 
 class Project extends Component {

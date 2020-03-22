@@ -22,7 +22,7 @@
   width: 100%;
 }
 
-form {
+#regform {
   padding: 10px 20px;
   /* margin-top: 60px; */
   width: 360px;
@@ -35,9 +35,9 @@ form h5 {
   
 } */
 
-input[type='text'],
-input[type='email'],
-input[type='password'],
+#regform input[type='text'],
+#regform input[type='email'],
+#regform input[type='password'],
 textarea.materialize-textarea {
   color: white !important;
   /* border-right: 1px solid #9c9c9d !important;
@@ -45,10 +45,10 @@ textarea.materialize-textarea {
   border-radius: 0px 20px 20px 0px !important;
   transition: all 0.3s linear 0s !important; */
 }
-input[type='text']:not(.browser-default):focus:not([readonly]),
-input[type='email']:not(.browser-default):focus:not([readonly]),
-input[type='password']:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]) {
+#regform input[type='text']:not(.browser-default):focus:not([readonly]),
+#regform input[type='email']:not(.browser-default):focus:not([readonly]),
+#regform input[type='password']:not(.browser-default):focus:not([readonly]),
+#regform textarea.materialize-textarea:focus:not([readonly]) {
   color: white !important;
   border-color: var(--main-logo-color);
   box-shadow: none;
@@ -57,25 +57,22 @@ textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid var(--main-logo-color) !important; */
 }
 
-input[type='text']:not(.browser-default):focus:not([readonly]) + label,
-textarea.materialize-textarea:focus:not([readonly]) + label,
-input[type='email']:not(.browser-default):focus:not([readonly]) + label,
-input[type='password']:not(.browser-default):focus:not([readonly]) + label {
+#regform input[type='text']:not(.browser-default):focus:not([readonly]) + label,
+#regform textarea.materialize-textarea:focus:not([readonly]) + label,
+#regform input[type='email']:not(.browser-default):focus:not([readonly]) + label,
+#regform input[type='password']:not(.browser-default):focus:not([readonly]) + label {
   background-color: transparent !important;
   color: #ec407a !important;
 }
-label {
+#regform label {
   color: white !important;
 }
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+#regform input:-webkit-autofill,
+#regform input:-webkit-autofill:hover,
+#regform input:-webkit-autofill:focus,
+#regform textarea:-webkit-autofill,
+#regform textarea:-webkit-autofill:hover,
+#regform textarea:-webkit-autofill:focus {
   color: white !important;
   -webkit-text-fill-color: white;
   box-shadow: 0 0 0px 1000px #282832 inset !important;
@@ -134,7 +131,7 @@ select:-webkit-autofill:focus {
     height: 100%;
     margin: 0px;
   }
-  form {
+  #regform {
     /* padding: 10px 20px; */
     /* margin-top: 60px; */
     width: 85vw !important;

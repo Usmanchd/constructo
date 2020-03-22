@@ -7,6 +7,7 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import Project from '../Project/Project';
 
 import ProjectList from '../Project/ProjectList';
+import ProjectDetails from '../Project/ProjectDetails';
 
 class Dashboard extends Component {
   render() {
@@ -16,6 +17,10 @@ class Dashboard extends Component {
     return (
       <div>
         <Switch>
+          <Route path="/details/:id">
+            <ProjectDetails />
+          </Route>
+
           <Route path="/list">
             <ProjectList />
           </Route>

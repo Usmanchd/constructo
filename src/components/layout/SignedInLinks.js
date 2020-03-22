@@ -6,26 +6,20 @@ import * as ROUTES from '../../constants/routes';
 
 const SignedInLinks = props => {
   return (
-    <div>
-      <ul className="right">
-        <li>
-          <NavLink to={ROUTES.ADMIN} className="btn">
-            Admin
-          </NavLink>
-        </li>
-        <li>
-          <a onClick={props.signOut}>Log Out</a>
-        </li>
-        <li>
-          <NavLink
-            to={ROUTES.ACCOUNT}
-            className="btn btn-floating pink lighten-1"
-          >
-            {props.profile.initials}
-          </NavLink>
-        </li>
-      </ul>
-    </div>
+    <ul className="menu">
+      <li>
+        <NavLink to="/list">Projects</NavLink>
+      </li>
+      <li>
+        <NavLink to={ROUTES.ADMIN}>Admin</NavLink>
+      </li>
+      <li>
+        <a onClick={props.signOut}>Log Out</a>
+      </li>
+      <li>
+        <NavLink to={ROUTES.ACCOUNT}>{props.profile.initials}</NavLink>
+      </li>
+    </ul>
   );
 };
 

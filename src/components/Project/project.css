@@ -22,8 +22,9 @@
 }
 
 .project-main-subdetails button {
-  background-color: #ececec;
-  color: black;
+  border-radius: 10px;
+  background-color: rgb(77, 77, 77) !important;
+  color: white !important;
   box-shadow: none;
 }
 .project-main-home-nav {
@@ -33,7 +34,48 @@
 }
 
 .project-main-home-nav button {
-  background-color: #ececec;
-  color: black;
+  border-radius: 10px;
+  background-color: rgb(77, 77, 77) !important;
+  color: white !important;
   box-shadow: none;
+}
+
+.btn-det {
+  margin-right: 5px;
+  border-radius: 10px;
+  background-color: rgb(77, 77, 77) !important;
+  color: white !important;
+}
+
+.details-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin: 10px;
+}
+.details-grid-wrapper .grid {
+  border: 1px solid gray;
+  border-radius: 15px;
+}
+.details-grid-wrapper .grid h5 {
+  text-align: center;
+}
+
+#det-form {
+  margin: 15px;
+}
+
+#det-form .input-field {
+  margin: 12px;
+  /* width: 30px; */
+  height: 50px;
+}
+#det-form input[type='text'] {
+  padding: 0px;
+}
+.map {
+  width: 340px;
+  height: 240px;
+  background-color: grey;
+  margin-top: 30px;
 }

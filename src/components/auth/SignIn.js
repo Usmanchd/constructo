@@ -53,7 +53,7 @@ class SignIn extends Component {
               </span>
             </span>
           </div>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} id="regform">
             <div className="input-field">
               <label htmlFor="email">Email</label>
               <input

@@ -103,7 +103,11 @@ class SignUp extends Component {
               </span>
             </span>
           </div>
-          <form onSubmit={this.handleSubmit} style={{ width: '480px' }}>
+          <form
+            onSubmit={this.handleSubmit}
+            style={{ width: '480px' }}
+            id="regform"
+          >
             <div className="form-ele">
               <div style={{ margin: '0 10px', width: '100%' }}>
                 <div className="input-field">
