@@ -4,9 +4,15 @@ import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
+import { getAllProjects } from '../../store/actions/projectActions';
 import './project.css';
 
 class ProjectList extends Component {
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.props.getAllProjects(this.props.profile.ID);
+    }, 1000);
+  };
   state = {
     selected: 'all'
   };
@@ -43,16 +49,18 @@ class ProjectList extends Component {
             </select>
           </div>
 
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => (
+          {this.props.projects.map(project => (
             <div>
               <div
                 className="project-main-subdetails"
                 style={{ margin: '5px 0px' }}
               >
-                <span>Name</span>
-                <span>Street</span>
-                <span>City</span>
-                <button className="btn waves-effect">Detail</button>
+                <span>{project.name}</span>
+                <span>{project.street}</span>
+                <span>{project.city}</span>
+                <Link to={`details/${project.ID}`}>
+                  <button className="btn waves-effect">Detail</button>
+                </Link>
               </div>
               <hr />
             </div>
@@ -65,8 +73,10 @@ class ProjectList extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+    projects: state.project.projects
   };
 };
 
-export default connect(mapStateToProps)(ProjectList);
+export default connect(mapStateToProps, { getAllProjects })(ProjectList);

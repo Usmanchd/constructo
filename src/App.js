@@ -11,6 +11,7 @@ import SignUpP2 from './components/auth/SignUpP2';
 import { connect } from 'react-redux';
 import * as ROUTES from './constants/routes';
 import ClipLoader from 'react-spinners/ClipLoader';
+import ProjectDetails from './components/Project/ProjectDetails';
 
 class App extends Component {
   render() {
@@ -43,6 +44,7 @@ class App extends Component {
               <Route path={ROUTES.HOME} component={HomePage} />
               <Route path={ROUTES.ACCOUNT} component={AccountPage} />
               <Route path={ROUTES.ADMIN} component={AdminPage} />
+
               <Route path={ROUTES.LANDING} component={Dashboard} />
             </Switch>
           </div>

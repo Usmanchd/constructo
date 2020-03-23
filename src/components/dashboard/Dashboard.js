@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { Redirect, Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import Project from '../Project/Project';
 
@@ -17,9 +17,10 @@ class Dashboard extends Component {
     return (
       <div>
         <Switch>
-          <Route path="/details/:id">
-            <ProjectDetails />
-          </Route>
+          <Route
+            path="/details/:id"
+            render={props => <ProjectDetails {...this.props} {...props} />}
+          />
 
           <Route path="/list">
             <ProjectList />

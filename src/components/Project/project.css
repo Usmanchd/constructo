@@ -68,16 +68,16 @@
 
 #det-form .input-field {
   margin: 12px;
-  /* width: 30px; */
+
   height: 50px;
 }
 #det-form input[type='text'] {
   padding: 0px;
 }
 .map {
-  width: 340px;
-  height: 240px;
-  background-color: grey;
+  /* width: 360px; */
+  /* height: 360px; */
+  /* background-color: grey; */
   margin-top: 30px;
 }
 

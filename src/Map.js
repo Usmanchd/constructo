@@ -22,9 +22,7 @@ class Map extends Component {
 
     const key = remoteConfig.getValue('GOOGLE_MAP_KEY');
 
-    this.setState({ ...this.state, key: key._value });
-
-    const loc = '30 W 26th St, New York, NY 10010, United States';
+    const loc = this.props.location || 'Lahore';
     axios
       .get(
         `https://api.opencagedata.com/geocode/v1/json?q=${loc}&key=7df9f26d51b54e36816ec50664d587c7`
@@ -32,28 +30,61 @@ class Map extends Component {
       .then(res => {
         const { lat, lng } = res.data.results[0].geometry;
         console.log(lat, lng);
-        this.setState({ ...this.state, center: { lat, lng }, loading: false });
+        this.setState({
+          ...this.state,
+          center: { lat, lng },
+          loading: false,
+          lat,
+          lng,
+          key: key._value
+        });
       });
   };
+  componentWillUpdate = prevProps => {
+    if (this.props.location === prevProps.location) return;
+    const loc = this.props.location;
+    axios
+      .get(
+        `https://api.opencagedata.com/geocode/v1/json?q=${loc}&key=7df9f26d51b54e36816ec50664d587c7`
+      )
+      .then(res => {
+        if (res.data.results[0] == undefined) return;
+        const { lat, lng } = res.data.results[0].geometry;
+
+        this.setState({
+          ...this.state,
+          center: { lat, lng },
+          loading: false,
+          lat,
+          lng
+        });
+      });
+  };
+
   state = {
     lng: null,
     lat: null,
     center: {
-      lat: 37.7699298,
-      lng: -122.4469157
+      lat: 59.955413,
+      lng: 30.337844
     },
-    zoom: 15,
-    loading: true,
-    key: null
+    zoom: 10,
+    loading: false,
+    key: null,
+    location: this.props.location || ''
   };
 
   render() {
     const handleMarker = (lat, lng) => {
-      this.setState({ ...this.state, lng, lat });
+      if (this.props.mode !== 'view')
+        this.setState({ ...this.state, lng, lat });
+    };
+    const mapOptions = {
+      fullscreenControl: false
     };
 
     return (
-      <div style={{ height: '240px', width: '340px' }}>
+      <div style={{ height: '280px', width: '100%' }}>
         {this.state.loading || this.state.key === null ? (
           'loading'
         ) : (
@@ -62,12 +93,14 @@ class Map extends Component {
               key: this.state.key
             }}
             defaultCenter={this.state.center}
+            center={this.state.center}
             defaultZoom={this.state.zoom}
             onClick={({ lat, lng }) => handleMarker(lat, lng)}
+            options={mapOptions}
           >
             <Marker
-              lat={this.state.lat || 59.955413}
-              lng={this.state.lng || 30.337844}
+              lat={this.state.lat}
+              lng={this.state.lng}
               text="My Marker"
             />
           </GoogleMapReact>
