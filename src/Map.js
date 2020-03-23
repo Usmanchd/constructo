@@ -90,7 +90,7 @@ class Map extends Component {
         ) : (
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: this.state.key
+              key: process.env.GOOGLE_MAP_KEY || this.state.key
             }}
             defaultCenter={this.state.center}
             center={this.state.center}
