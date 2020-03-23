@@ -31,7 +31,11 @@ class ProjectDetails extends Component {
       <div>
         <div className="dashboard container">
           <div className="project-main-home-nav">
-            <h4>Projects Details</h4>
+            {this.state.name ? (
+              <h4>{`Construction of ${this.state.name}`}</h4>
+            ) : (
+              <h4>Projects Details</h4>
+            )}
             <span>
               <button
                 className="btn-det btn waves-effect"

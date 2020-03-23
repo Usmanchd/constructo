@@ -1,8 +1,9 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
-
+import 'firebase/analytics';
+import 'firebase/remote-config';
 // Replace this with your own config details
 var config = {
   apiKey: 'AIzaSyBYGDQc-sjJJT_YqNhUJsxVkFN7GakWb8w',
@@ -16,5 +17,7 @@ var config = {
 };
 firebase.initializeApp(config);
 firebase.firestore().settings({ timestampsInSnapshots: true });
+firebase.analytics();
+firebase.remoteConfig();
 
 export default firebase;

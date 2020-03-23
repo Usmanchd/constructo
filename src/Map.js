@@ -4,6 +4,7 @@ import axios from 'axios';
 import GoogleMapReact from 'google-map-react';
 import { Icon } from 'react-icons-kit';
 import { location } from 'react-icons-kit/icomoon/location';
+import firebase from './config/fbConfig';
 
 const Marker = ({ text }) => (
   <div style={{ width: 24, height: 24 }}>
@@ -17,6 +18,12 @@ const Marker = ({ text }) => (
 
 class Map extends Component {
   componentWillMount = () => {
+    const remoteConfig = firebase.remoteConfig();
+
+    const key = remoteConfig.getValue('GOOGLE_MAP_KEY');
+
+    this.setState({ ...this.state, key: key._value });
+
     const loc = '30 W 26th St, New York, NY 10010, United States';
     axios
       .get(
@@ -36,23 +43,23 @@ class Map extends Component {
       lng: -122.4469157
     },
     zoom: 15,
-    loading: true
+    loading: true,
+    key: null
   };
 
   render() {
     const handleMarker = (lat, lng) => {
-      console.log(lat, lng);
       this.setState({ ...this.state, lng, lat });
     };
 
     return (
-      <div style={{ height: '240px', width: '400px' }}>
-        {this.state.loading ? (
+      <div style={{ height: '240px', width: '340px' }}>
+        {this.state.loading || this.state.key === null ? (
           'loading'
         ) : (
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: 'AIzaSyAfqXBYrMi6-YlZ5-P_JbMSub-3UVBUxA8'
+              key: this.state.key
             }}
             defaultCenter={this.state.center}
             defaultZoom={this.state.zoom}

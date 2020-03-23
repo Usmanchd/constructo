@@ -38,6 +38,7 @@
   background-color: rgb(77, 77, 77) !important;
   color: white !important;
   box-shadow: none;
+  margin-top: 5px;
 }
 
 .btn-det {
@@ -78,4 +79,30 @@
   height: 240px;
   background-color: grey;
   margin-top: 30px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .details-grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    width: 60%;
+    margin: auto;
+  }
+  #det-form {
+    margin: 0px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .details-grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    width: 90%;
+    margin: auto;
+  }
+  #det-form {
+    margin: 0px;
+  }
 }
