@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { Redirect, Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Redirect, Switch, Route } from 'react-router-dom';
 
 import Project from '../Project/Project';
+
+import * as ROUTES from '../../constants/routes';
 
 import ProjectList from '../Project/ProjectList';
 import ProjectDetails from '../Project/ProjectDetails';
@@ -18,11 +20,11 @@ class Dashboard extends Component {
       <div>
         <Switch>
           <Route
-            path="/details/:id"
+            path={ROUTES.DETAILS}
             render={props => <ProjectDetails {...this.props} {...props} />}
           />
 
-          <Route path="/list">
+          <Route path={ROUTES.LIST}>
             <ProjectList />
           </Route>
 

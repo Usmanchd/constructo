@@ -7,14 +7,15 @@ import ProjectDetailsNew from './ProjectDetailsNew';
 import ProjectDetailsView from './ProjectDetailsView';
 
 class ProjectDetails extends Component {
-
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-    if (this.props.match.params.id === 'newproject') {
+    if (this.props.match.params.id === 'create-project') {
       return <ProjectDetailsNew />;
     } else {
-      return <ProjectDetailsView id={this.props.match.params.id} />;
+      return (
+        <ProjectDetailsView id={this.props.match.params.id} {...this.props} />
+      );
     }
   }
 }

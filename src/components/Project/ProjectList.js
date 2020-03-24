@@ -4,18 +4,27 @@ import { connect } from 'react-redux';
 
 import { Redirect, Link } from 'react-router-dom';
 
+import ClipLoader from 'react-spinners/ClipLoader';
+
 import { getAllProjects } from '../../store/actions/projectActions';
 import './project.css';
 
 class ProjectList extends Component {
   componentDidMount = () => {
-    setTimeout(() => {
-      this.props.getAllProjects(this.props.profile.ID);
-    }, 1000);
+    this.getProject();
   };
   state = {
     selected: 'all'
   };
+
+  getProject = () => {
+    if (this.props.profile.ID === undefined) {
+      setTimeout(() => {
+        this.getProject();
+      }, 1000);
+    } else this.props.getAllProjects(this.props.profile.ID);
+  };
+
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
@@ -23,51 +32,68 @@ class ProjectList extends Component {
     const handleChange = e => {
       this.setState({ selected: e.target.value });
     };
-
-    return (
-      <div className="dashboard container">
-        <div className="project-main-home-nav">
-          <h4>Projects</h4>
-          <Link to="/details/newproject">
-            <button className="btn waves-effect">Add New Project</button>
-          </Link>
+    if (this.props.loading) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh'
+          }}
+        >
+          <ClipLoader
+            size={120}
+            color={'#fbd800'}
+            loading={this.props.loading}
+          />
         </div>
-        <hr />
-        <div className="project-main-home">
-          <div className="project-main-heading">
-            <h5>List of Projects</h5>
-
-            <select
-              id="filter"
-              style={{ display: 'block', width: '30%' }}
-              value={this.state.selected}
-              onChange={handleChange}
-            >
-              <option value="all">All</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
+      );
+    } else
+      return (
+        <div className="dashboard container">
+          <div className="project-main-home-nav">
+            <h4>Projects</h4>
+            <Link to="/project-details/create-project">
+              <button className="btn waves-effect">Add New Project</button>
+            </Link>
           </div>
+          <hr />
+          <div className="project-main-home">
+            <div className="project-main-heading">
+              <h5>List of Projects</h5>
 
-          {this.props.projects.map(project => (
-            <div>
-              <div
-                className="project-main-subdetails"
-                style={{ margin: '5px 0px' }}
+              <select
+                id="filter"
+                style={{ display: 'block', width: '30%' }}
+                value={this.state.selected}
+                onChange={handleChange}
               >
-                <span>{project.name}</span>
-                <span>{project.street}</span>
-                <span>{project.city}</span>
-                <Link to={`details/${project.ID}`}>
-                  <button className="btn waves-effect">Detail</button>
-                </Link>
-              </div>
-              <hr />
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
             </div>
-          ))}
+
+            {this.props.projects.map(project => (
+              <div>
+                <div
+                  className="project-main-subdetails"
+                  style={{ margin: '5px 0px' }}
+                >
+                  <span>{project.name}</span>
+                  <span>{project.street}</span>
+                  <span>{project.city}</span>
+                  <Link to={`project-details/${project.ID}`}>
+                    <button className="btn waves-effect">Detail</button>
+                  </Link>
+                </div>
+                <hr />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
   }
 }
 
@@ -75,7 +101,8 @@ const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    projects: state.project.projects
+    projects: state.project.projects,
+    loading: state.project.loading
   };
 };
 

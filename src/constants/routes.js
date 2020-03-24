@@ -5,4 +5,6 @@ export const FORWARD = '/forward';
 export const HOME = '/home';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
+export const DETAILS = '/project-details/:id';
+export const LIST = '/list';
 export const PASSWORD_FORGET = '/pw-forget';
