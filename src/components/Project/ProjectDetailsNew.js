@@ -123,8 +123,6 @@ class ProjectDetailsNew extends Component {
               >
                 Discard Changes
               </button>
-              <button className="btn-det btn waves-effect">Edit/Save</button>
-
               <button
                 className="btn-det btn waves-effect"
                 onClick={this.handleSubmit}
