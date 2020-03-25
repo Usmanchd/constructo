@@ -15,6 +15,11 @@ const projectReducer = (state = initState, action) => {
         ...state,
         loading: true
       };
+    case 'TOGGLE_P_LOADING':
+      return {
+        ...state,
+        loading: false
+      };
     default:
       return state;
   }

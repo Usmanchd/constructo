@@ -5,6 +5,7 @@ export const createProject = _newProject => async (
   getState,
   { getFirestore }
 ) => {
+  dispatch({ type: 'P_LOADING' });
   const firestore = getFirestore();
   let newProject = {
     ..._newProject,
@@ -48,6 +49,7 @@ export const createProject = _newProject => async (
           .update({ projects: p });
       });
     });
+  dispatch({ type: 'P_LOADING' });
 };
 
 export const getAllProjects = ID => (dispatch, getState, { getFirestore }) => {
