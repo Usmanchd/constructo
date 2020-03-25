@@ -112,7 +112,7 @@ class ProjectDetailsView extends Component {
           <div className="details-grid-wrapper">
             <div className="grid">
               <h5>General</h5>
-              <form id="det-form">
+              <form id="det-form" onSubmit={e => e.preventDefault()}>
                 <div class="input-field">
                   <p
                     for="name"
@@ -271,7 +271,7 @@ class ProjectDetailsView extends Component {
 
             <div className="grid">
               <h5>Management</h5>
-              <form id="det-form">
+              <form id="det-form" onSubmit={e => e.preventDefault()}>
                 <div class="input-field col s12">
                   <p
                     for="name"
@@ -423,7 +423,7 @@ class ProjectDetailsView extends Component {
             </div>
             <div className="grid">
               <h5>Settings</h5>
-              <form id="det-form">
+              <form id="det-form" onSubmit={e => e.preventDefault()}>
                 <div class="input-field col s12">
                   <p
                     for="name"

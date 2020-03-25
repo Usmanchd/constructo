@@ -33,7 +33,8 @@ class ProjectDetailsNew extends Component {
       [e.target.id]: e.target.value
     });
   };
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     if (
       this.state.name === '' ||
       this.state.city === '' ||
@@ -114,7 +115,7 @@ class ProjectDetailsNew extends Component {
                     starttime: '',
                     endtime: '',
                     createdby: '',
-                    createdad: '',
+                    createdat: '',
                     lastupdate: '',
                     estimatestart: '',
                     estimatend: ''
@@ -137,7 +138,7 @@ class ProjectDetailsNew extends Component {
         <div className="details-grid-wrapper">
           <div className="grid">
             <h5>General</h5>
-            <form id="det-form">
+            <form id="det-form" onSubmit={e => e.preventDefault()}>
               <div class="input-field">
                 <p
                   for="name"
@@ -153,7 +154,6 @@ class ProjectDetailsNew extends Component {
                   id="name"
                   type="text"
                   value={this.state.name}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -172,7 +172,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   value={this.state.street}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -191,7 +190,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="city"
                   value={this.state.city}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -210,7 +208,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="zip"
                   value={this.state.zip}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -229,7 +226,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="state"
                   value={this.state.state}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -248,7 +244,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="location"
                   value={this.state.location}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -267,7 +262,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="projectDescription"
                   value={this.state.projectDescription}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -279,7 +273,7 @@ class ProjectDetailsNew extends Component {
 
           <div className="grid">
             <h5>Management</h5>
-            <form id="det-form">
+            <form id="det-form" onSubmit={e => e.preventDefault()}>
               <div class="input-field col s12">
                 <p
                   for="name"
@@ -326,7 +320,7 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   // value={this.state.street}
-                  required
+
                   disabled
                   // onChange={this.handleChange}
                 />
@@ -336,7 +330,7 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   // value={this.state.street}
-                  required
+
                   disabled
                   // onChange={this.handleChange}
                 />
@@ -368,11 +362,10 @@ class ProjectDetailsNew extends Component {
                   Users
                 </p>
                 <input
-                  placeholder="Users"
                   type="text"
                   id="street"
                   // value={this.state.street}
-                  required
+
                   // onChange={this.handleChange}
                 />
               </div>
@@ -381,7 +374,7 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   // value={this.state.street}
-                  required
+
                   // onChange={this.handleChange}
                 />
               </div>
@@ -417,7 +410,7 @@ class ProjectDetailsNew extends Component {
           </div>
           <div className="grid">
             <h5>Settings</h5>
-            <form id="det-form">
+            <form id="det-form" onSubmit={e => e.preventDefault()}>
               <div class="input-field col s12">
                 <p
                   for="name"
@@ -433,7 +426,6 @@ class ProjectDetailsNew extends Component {
                   id="createdby"
                   type="text"
                   value={this.state.createdby}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -450,9 +442,8 @@ class ProjectDetailsNew extends Component {
 
                 <input
                   type="text"
-                  id="createdad"
+                  id="createdAt"
                   value={this.state.createdAt}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -471,7 +462,6 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="lastupdate"
                   value={this.state.lastupdate}
-                  required
                   onChange={this.handleChange}
                 />
               </div>
