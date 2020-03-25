@@ -49,7 +49,7 @@ export const createProject = _newProject => async (
           .update({ projects: p });
       });
     });
-  dispatch({ type: 'P_LOADING' });
+  dispatch({ type: 'TOGGLE_P_LOADING' });
 };
 
 export const getAllProjects = ID => (dispatch, getState, { getFirestore }) => {
