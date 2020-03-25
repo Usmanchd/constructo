@@ -98,7 +98,11 @@ class ProjectList extends Component {
                 <option value="inactive">Inactive</option>
               </select>
             </div>
-
+            {!this.props.projects[0] && (
+              <div className="project-main-subdetails">
+                <h5>No Record Found!</h5>
+              </div>
+            )}
             {this.state.projects.map(project => (
               <div>
                 <div

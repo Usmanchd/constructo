@@ -34,6 +34,23 @@ class ProjectDetailsNew extends Component {
     });
   };
   handleSubmit = () => {
+    if (
+      this.state.name === '' ||
+      this.state.city === '' ||
+      this.state.street === '' ||
+      this.state.zip === '' ||
+      this.state.state === '' ||
+      this.state.location === '' ||
+      this.state.projectDescription === '' ||
+      this.state.createdby === ''
+    ) {
+      alert(
+        'Please Fill in All Details<br />Will Replaced with a suitable model/popup'
+      );
+      this.props.history.push('/project-details/create-project');
+      return;
+    }
+
     axios
       .get(
         `https://api.opencagedata.com/geocode/v1/json?q=${this.state.location}&key=7df9f26d51b54e36816ec50664d587c7`
@@ -48,8 +65,9 @@ class ProjectDetailsNew extends Component {
           user: [this.props.profile.ID],
           projectCreator: this.props.profile.ID
         };
-
+        console.log(newstate);
         this.props.createProject(newstate);
+        this.props.history.push('/list');
         this.setState({
           name: '',
           city: '',
@@ -106,14 +124,13 @@ class ProjectDetailsNew extends Component {
                 Discard Changes
               </button>
               <button className="btn-det btn waves-effect">Edit/Save</button>
-              <Link to="/list">
-                <button
-                  className="btn-det btn waves-effect"
-                  onClick={this.handleSubmit}
-                >
-                  Set
-                </button>
-              </Link>
+
+              <button
+                className="btn-det btn waves-effect"
+                onClick={this.handleSubmit}
+              >
+                Set
+              </button>
             </span>
           </div>
           <hr />

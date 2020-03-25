@@ -1,7 +1,7 @@
 const initState = {
   projects: [],
   project: {},
-  loading: true
+  loading: false
 };
 
 const projectReducer = (state = initState, action) => {

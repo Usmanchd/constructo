@@ -28,6 +28,7 @@ class Project extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
+    
     if (this.props.loading) {
       return (
         <div
@@ -59,14 +60,20 @@ class Project extends Component {
             <div className="project-main-heading">
               <h4>Current Project Info</h4>
             </div>
-            <div className="project-main-subdetails">
-              <span>{this.props.project && this.props.project.name}</span>
-              <span>{this.props.project && this.props.project.street}</span>
-              <span>{this.props.project && this.props.project.city}</span>
-              <Link to={`project-details/${this.props.project.ID}`}>
-                <button className="btn waves-effect">Detail</button>
-              </Link>
-            </div>
+            {this.props.project ? (
+              <div className="project-main-subdetails">
+                <span>{this.props.project.name}</span>
+                <span>{this.props.project.street}</span>
+                <span>{this.props.project.city}</span>
+                <Link to={`project-details/${this.props.project.ID}`}>
+                  <button className="btn waves-effect">Detail</button>
+                </Link>
+              </div>
+            ) : (
+              <div className="project-main-subdetails">
+                <h5>No Record Found!</h5>
+              </div>
+            )}
           </div>
         </div>
       );
