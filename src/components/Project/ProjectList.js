@@ -14,15 +14,24 @@ class ProjectList extends Component {
     this.getProject();
   };
   state = {
-    selected: 'all'
+    selected: 'all',
+    projects: []
+  };
+
+  componentDidUpdate = prevProps => {
+    if (this.props.projects !== prevProps.projects)
+      this.setState({ ...this.state, projects: [...this.props.projects] });
   };
 
   getProject = () => {
+    if (this.props.projects === []) return;
     if (this.props.profile.ID === undefined) {
       setTimeout(() => {
         this.getProject();
       }, 1000);
-    } else this.props.getAllProjects(this.props.profile.ID);
+    } else {
+      this.props.getAllProjects(this.props.profile.ID);
+    }
   };
 
   render() {
@@ -30,7 +39,22 @@ class ProjectList extends Component {
     if (!auth.uid) return <Redirect to="/signin" />;
 
     const handleChange = e => {
-      this.setState({ selected: e.target.value });
+      let active;
+      if (e.target.value === 'active') active = true;
+      else if (e.target.value === 'inactive') active = false;
+      else if (e.target.value === 'all') {
+        this.setState({
+          selected: e.target.value,
+          projects: this.props.projects
+        });
+        return;
+      }
+      this.setState({
+        selected: e.target.value,
+        projects: this.props.projects.filter(
+          project => project.active === active
+        )
+      });
     };
     if (this.props.loading) {
       return (
@@ -75,7 +99,7 @@ class ProjectList extends Component {
               </select>
             </div>
 
-            {this.props.projects.map(project => (
+            {this.state.projects.map(project => (
               <div>
                 <div
                   className="project-main-subdetails"

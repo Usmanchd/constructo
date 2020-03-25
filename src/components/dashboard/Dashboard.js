@@ -10,6 +10,7 @@ import * as ROUTES from '../../constants/routes';
 
 import ProjectList from '../Project/ProjectList';
 import ProjectDetails from '../Project/ProjectDetails';
+import './dashboard.css';
 
 class Dashboard extends Component {
   render() {
@@ -17,7 +18,7 @@ class Dashboard extends Component {
     if (!auth.uid) return <Redirect to="/signin" />;
     console.log(`${this.props.match.path}list`, 'hello');
     return (
-      <div>
+      <div className="landing-page">
         <Switch>
           <Route
             path={ROUTES.DETAILS}

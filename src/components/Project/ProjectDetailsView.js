@@ -78,7 +78,7 @@ class ProjectDetailsView extends Component {
                   left: '50px',
                   color: '#fbd800'
                 }}
-                onClick={() => this.props.history.push('/list')}
+                onClick={() => this.props.history.goBack()}
               >
                 <Icon size={54} icon={arrowLeft2} />
               </div>
@@ -281,7 +281,7 @@ class ProjectDetailsView extends Component {
                       fontSize: '12px'
                     }}
                   >
-                    Timiing
+                    Timing
                   </p>
 
                   <input
@@ -292,6 +292,7 @@ class ProjectDetailsView extends Component {
                     name="trip-start"
                     value={this.state.estimatestart}
                     onChange={this.handleChange}
+                    style={{ color: 'white' }}
                   />
                 </div>
                 <div class="input-field col s12">
@@ -303,6 +304,7 @@ class ProjectDetailsView extends Component {
                     name="trip-start"
                     value={this.state.estimatend}
                     onChange={this.handleChange}
+                    style={{ color: 'white' }}
                   />
                 </div>
                 <div className="input-field">
@@ -485,56 +487,82 @@ class ProjectDetailsView extends Component {
                     onChange={this.handleChange}
                   />
                 </div>
-                <div className="input-field">
-                  <p
+                <div className="input-field" style={{ padding: '20px 0' }}>
+                  <span
                     style={{
-                      margin: '25px 0 0 0',
+                      margin: '25px 200px 0 0',
                       padding: '0',
                       fontSize: '12px'
                     }}
                   >
                     Active
-                  </p>
-
+                  </span>
+                  <span>{this.state.active ? 'Active' : 'Not Active'}</span>
+                  <br />
                   <button
                     className="btn-det btn waves-effect"
-                    style={{ marginLeft: '50px' }}
+                    style={{
+                      margin: '15px 25px',
+                      fontSize: '10px',
+                      padding: '0 5px',
+                      width: '80%'
+                    }}
                   >
-                    Activate/Disactivate
+                    Activate/Deactivate
                   </button>
                 </div>
-                <div className="input-field">
-                  <p
+                <div
+                  className="input-field"
+                  style={{ padding: '20px 0', marginTop: '40px' }}
+                >
+                  <span
                     style={{
-                      margin: '25px 0 0 0',
+                      margin: '25px 200px 0 0',
                       padding: '0',
                       fontSize: '12px'
                     }}
                   >
-                    Archived at
-                  </p>
+                    Archive
+                  </span>
+                  <span>{this.state.archive ? 'True' : 'False'}</span>
+                  <br />
                   <button
                     className="btn-det btn waves-effect"
-                    style={{ marginLeft: '50px' }}
+                    style={{
+                      margin: '15px 25px',
+                      fontSize: '10px',
+                      padding: '0 5px',
+                      width: '80%'
+                    }}
                   >
                     Archive
                   </button>
                 </div>
-                <div className="input-field">
-                  <p
+                <div
+                  className="input-field"
+                  style={{ padding: '20px 0', marginTop: '40px' }}
+                >
+                  <span
                     style={{
-                      margin: '25px 0 0 0',
+                      margin: '25px 200px 0 0',
                       padding: '0',
                       fontSize: '12px'
                     }}
                   >
-                    Deleted At
-                  </p>
+                    Delete Project
+                  </span>
+
+                  <br />
                   <button
                     className="btn-det btn waves-effect"
-                    style={{ marginLeft: '50px' }}
+                    style={{
+                      margin: '15px 25px',
+                      fontSize: '10px',
+                      padding: '0 5px',
+                      width: '80%'
+                    }}
                   >
-                    Delete Project
+                    Delete
                   </button>
                 </div>
               </form>

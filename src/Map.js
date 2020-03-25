@@ -7,7 +7,7 @@ import { location } from 'react-icons-kit/icomoon/location';
 import firebase from './config/fbConfig';
 
 const Marker = ({ text }) => (
-  <div style={{ width: 24, height: 24 }}>
+  <div style={{ width: 24, height: 24, color: 'red' }}>
     <Icon
       size={'100%'}
       icon={location}

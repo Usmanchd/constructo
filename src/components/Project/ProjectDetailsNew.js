@@ -48,7 +48,7 @@ class ProjectDetailsNew extends Component {
           user: [this.props.profile.ID],
           projectCreator: this.props.profile.ID
         };
-        console.log(newstate);
+
         this.props.createProject(newstate);
         this.setState({
           name: '',
@@ -274,7 +274,7 @@ class ProjectDetailsNew extends Component {
                     fontSize: '12px'
                   }}
                 >
-                  Timiing
+                  Timing
                 </p>
 
                 <input
@@ -283,6 +283,7 @@ class ProjectDetailsNew extends Component {
                   name="trip-start"
                   value={this.state.estimatestart}
                   onChange={this.handleChange}
+                  style={{ color: 'white' }}
                 />
               </div>
               <div class="input-field col s12">
@@ -292,6 +293,7 @@ class ProjectDetailsNew extends Component {
                   name="trip-start"
                   value={this.state.estimatend}
                   onChange={this.handleChange}
+                  style={{ color: 'white' }}
                 />
               </div>
               <div className="input-field">
@@ -458,56 +460,55 @@ class ProjectDetailsNew extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <div className="input-field">
-                <p
+              <div className="input-field" style={{ padding: '20px 0' }}>
+                <span
                   style={{
-                    margin: '25px 0 0 0',
+                    margin: '25px 200px 0 0',
                     padding: '0',
                     fontSize: '12px'
                   }}
                 >
                   Active
-                </p>
-
+                </span>
+                <span>Waiting...</span>
+                <br />
                 <button
                   className="btn-det btn waves-effect"
-                  style={{ marginLeft: '50px' }}
+                  style={{
+                    margin: '15px 25px',
+                    fontSize: '10px',
+                    padding: '0 5px',
+                    width: '80%'
+                  }}
                 >
-                  Activate/Disactivate
+                  Activate/Deactivate
                 </button>
               </div>
-              <div className="input-field">
-                <p
+              <div
+                className="input-field"
+                style={{ padding: '20px 0', marginTop: '40px' }}
+              >
+                <span
                   style={{
-                    margin: '25px 0 0 0',
+                    margin: '25px 200px 0 0',
                     padding: '0',
                     fontSize: '12px'
                   }}
-                >
-                  Archived at
-                </p>
-                <button
-                  className="btn-det btn waves-effect"
-                  style={{ marginLeft: '50px' }}
                 >
                   Archive
-                </button>
-              </div>
-              <div className="input-field">
-                <p
-                  style={{
-                    margin: '25px 0 0 0',
-                    padding: '0',
-                    fontSize: '12px'
-                  }}
-                >
-                  Deleted At
-                </p>
+                </span>
+                <span>False</span>
+                <br />
                 <button
                   className="btn-det btn waves-effect"
-                  style={{ marginLeft: '50px' }}
+                  style={{
+                    margin: '15px 25px',
+                    fontSize: '10px',
+                    padding: '0 5px',
+                    width: '80%'
+                  }}
                 >
-                  Delete Project
+                  Archive
                 </button>
               </div>
             </form>
