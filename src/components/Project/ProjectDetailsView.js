@@ -43,6 +43,11 @@ class ProjectDetailsView extends Component {
     this.setState({ flag: false });
   };
 
+  getDate = milisecond => {
+    const date = new Date(milisecond);
+    return date.toString();
+  };
+
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
@@ -461,7 +466,7 @@ class ProjectDetailsView extends Component {
                     style={{ fontWeight: 'bolder' }}
                     type="text"
                     id="createdad"
-                    value={this.state.createdAt}
+                    value={this.getDate(this.state.createdAt)}
                     required
                     onChange={this.handleChange}
                   />

@@ -11,7 +11,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import './project.css';
 
 class Project extends Component {
-  componentDidMount = () => {
+  componentWillMount = () => {
     this.getProject();
   };
 
@@ -19,7 +19,7 @@ class Project extends Component {
     if (this.props.profile.ID === undefined) {
       setTimeout(() => {
         this.getProject();
-      }, 1000);
+      }, 10);
     } else {
       this.props.getAllProjects(this.props.profile.ID);
     }
@@ -28,7 +28,7 @@ class Project extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-    
+
     if (this.props.loading) {
       return (
         <div

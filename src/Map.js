@@ -25,10 +25,10 @@ class Map extends Component {
     const loc = this.props.location || 'Lahore';
     axios
       .get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${loc}&key=7df9f26d51b54e36816ec50664d587c7`
+        `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
       )
       .then(res => {
-        const { lat, lng } = res.data.results[0].geometry;
+        const { lat, lng } = res.data.results[0].locations[0].latLng;
         console.log(lat, lng);
         this.setState({
           ...this.state,
@@ -40,17 +40,18 @@ class Map extends Component {
         });
       });
   };
-  componentWillUpdate = prevProps => {
-    if (this.props.location === prevProps.location) return;
-    const loc = this.props.location;
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.location === '') return;
+    const loc = nextProps.location;
+    console.log(loc);
     axios
       .get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${loc}&key=7df9f26d51b54e36816ec50664d587c7`
+        `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
       )
       .then(res => {
         if (res.data.results[0] == undefined) return;
-        const { lat, lng } = res.data.results[0].geometry;
-
+        const { lat, lng } = res.data.results[0].locations[0].latLng;
+        console.log(lat, lng);
         this.setState({
           ...this.state,
           center: { lat, lng },

@@ -53,6 +53,7 @@ export const createProject = _newProject => async (
 };
 
 export const getAllProjects = ID => (dispatch, getState, { getFirestore }) => {
+  dispatch({ type: 'P_LOADING' });
   const firestore = getFirestore();
   firestore
     .collection('projects')
