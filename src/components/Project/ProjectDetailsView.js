@@ -199,7 +199,9 @@ class ProjectDetailsView extends Component {
                     className="btn-det btn waves-effect"
                     onClick={this.handleSubmit}
                   >
-                    Update
+                    {this.props.match.params.id === 'create-project'
+                      ? 'Save'
+                      : 'Update'}
                   </button>
                 </span>
               ) : (
