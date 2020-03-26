@@ -10,21 +10,49 @@ import { Icon } from 'react-icons-kit';
 
 import { arrowLeft2 } from 'react-icons-kit/icomoon/arrowLeft2';
 
+import axios from 'axios';
+
 import {
   updateProject,
-  getThisProject
+  getThisProject,
+  createProject
 } from '../../store/actions/projectActions';
 import firebase from '../../config/fbConfig';
 import Map from '../../Map';
 
 class ProjectDetailsView extends Component {
-  state = { flag: false };
+  state = {
+    name: '',
+    street: '',
+    city: '',
+    zip: '',
+    state: '',
+    location: '',
+    projectDescription: '',
+    // starttime: "2.3",
+    // endtime: "2.3",
+    createdby: '',
+    lastupdate: '',
+    estimatestart: '',
+    estimatend: '',
+    lat: '',
+    lng: '',
+    flag: false
+  };
   componentDidMount = () => {
-    this.props.getThisProject(this.props.id);
+    console.log(this.props.profile);
+    if (this.props.match.params.id === 'create-project')
+      this.setState({
+        ...this.state,
+        createdby: this.props.profile.Name,
+        flag: true
+      });
+    else this.props.getThisProject(this.props.id);
   };
 
   componentDidUpdate = prevProps => {
     if (this.props === prevProps) return;
+
     this.setState({ ...this.props.project });
   };
 
@@ -37,9 +65,50 @@ class ProjectDetailsView extends Component {
     });
   };
   handleSubmit = () => {
+    if (
+      this.state.name === '' ||
+      this.state.city === '' ||
+      this.state.street === '' ||
+      this.state.zip === '' ||
+      this.state.state === '' ||
+      this.state.location === '' ||
+      this.state.projectDescription === '' ||
+      this.state.createdby === ''
+    ) {
+      alert('Please Fill in All Details');
+
+      return;
+    }
     let newState = { ...this.state };
     delete newState.flag;
-    this.props.updateProject(newState);
+    if (this.props.match.params.id === 'create-project') {
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+        )
+        .then(res => {
+          if (res.data.results[0].location[0] == undefined) return;
+          console.log(res.data);
+          const { lat, lng } = res.data.results[0].locations[0].latLng;
+          let newstate = {
+            ...this.state,
+            user: [this.props.profile.ID],
+            projectCreator: this.props.profile.ID
+          };
+          if (this.state.lat === '' || this.state.lng === '') {
+            newstate.lat = lat;
+            newstate.lng = lng;
+          }
+          if (this.state.createdby === undefined)
+            newstate.createdby = this.props.profile.Name;
+          console.log(newstate);
+          this.props.createProject(newstate);
+          this.props.history.push('/list');
+        });
+    } else {
+      this.props.updateProject(newState);
+    }
+
     this.setState({ flag: false });
   };
 
@@ -54,6 +123,36 @@ class ProjectDetailsView extends Component {
     // console.log(this.props.id);
     // console.log(this.props.project);
     // console.log(this.state);
+    console.log(this.props.viewUser);
+
+    const handleMarker = (lat, lng) => {
+      if (this.state.flag === false) return;
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/reverse?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+        )
+        .then(res => {
+          if (res.data.results[0] == undefined) return;
+          console.log(res.data);
+          const {
+            street,
+            adminArea3,
+            postalCode,
+            adminArea5
+          } = res.data.results[0].locations[0];
+          this.setState({
+            ...this.state,
+            lng,
+            lat,
+            street,
+            state: adminArea3,
+            zip: postalCode,
+            city: adminArea5,
+            location: `${street} ${adminArea5}`
+          });
+        });
+    };
+
     if (this.props.loading) {
       return (
         <div
@@ -79,8 +178,8 @@ class ProjectDetailsView extends Component {
               <div
                 style={{
                   position: 'absolute',
-                  top: '90px',
-                  left: '50px',
+                  top: '70px',
+                  left: '20px',
                   color: '#fbd800'
                 }}
                 onClick={() => this.props.history.goBack()}
@@ -88,9 +187,12 @@ class ProjectDetailsView extends Component {
                 <Icon size={54} icon={arrowLeft2} />
               </div>
 
-              <h4>
+              {this.state.name ? (
                 <h4>{`Construction of ${this.state.name}`}</h4>
-              </h4>
+              ) : (
+                <h4>Projects Details</h4>
+              )}
+
               {this.state.flag ? (
                 <span>
                   <button
@@ -241,7 +343,10 @@ class ProjectDetailsView extends Component {
                     id="location"
                     value={this.state.location}
                     required
-                    onChange={this.handleChange}
+                    onChange={e => {
+                      this.setState({ ...this.state, lat: '', lng: '' });
+                      this.handleChange(e);
+                    }}
                   />
                 </div>
                 <div className="input-field">
@@ -268,6 +373,9 @@ class ProjectDetailsView extends Component {
                 <div className="map">
                   <Map
                     location={this.state.location}
+                    lat={this.state.lat}
+                    lng={this.state.lng}
+                    handleMarker={handleMarker}
                     mode={!this.state.flag ? 'view' : 'edit'}
                   />
                 </div>
@@ -327,7 +435,8 @@ class ProjectDetailsView extends Component {
                     disabled
                     style={{ fontWeight: 'bolder' }}
                     type="text"
-                    id="street"
+                    id="spaceUsed"
+                    placeholder="Used"
                     // value={this.state.street}
                     required
                     disabled
@@ -340,7 +449,8 @@ class ProjectDetailsView extends Component {
                     disabled
                     style={{ fontWeight: 'bolder' }}
                     type="text"
-                    id="street"
+                    id="spaceLimit"
+                    placeholder="Available"
                     // value={this.state.street}
                     required
                     disabled
@@ -375,11 +485,11 @@ class ProjectDetailsView extends Component {
                     Users
                   </p>
                   <input
-                    placeholder="Users"
+                    placeholder="Used"
                     disabled
                     style={{ fontWeight: 'bolder' }}
                     type="text"
-                    id="street"
+                    id="userUsed"
                     // value={this.state.street}
                     required
                     // onChange={this.handleChange}
@@ -390,7 +500,8 @@ class ProjectDetailsView extends Component {
                     disabled
                     style={{ fontWeight: 'bolder' }}
                     type="text"
-                    id="street"
+                    id="userLimit"
+                    placeholder="Available"
                     // value={this.state.street}
                     required
                     // onChange={this.handleChange}
@@ -422,6 +533,9 @@ class ProjectDetailsView extends Component {
                     >
                       List of Users
                     </p>
+                    {this.props.viewUser.map(v => (
+                      <p>{v.Name}</p>
+                    ))}
                   </div>
                 </div>
               </form>
@@ -442,7 +556,7 @@ class ProjectDetailsView extends Component {
                   </p>
                   <input
                     id="createdby"
-                    disabled={!this.state.flag}
+                    disabled
                     style={{ fontWeight: 'bolder' }}
                     type="text"
                     value={this.state.createdby}
@@ -584,10 +698,13 @@ const mapStateToProps = state => {
     profile: state.firebase.profile,
     projects: state.project.projects,
     project: state.project.project,
-    loading: state.project.loading
+    loading: state.project.loading,
+    viewUser: state.project.viewUser
   };
 };
 
-export default connect(mapStateToProps, { updateProject, getThisProject })(
-  ProjectDetailsView
-);
+export default connect(mapStateToProps, {
+  updateProject,
+  getThisProject,
+  createProject
+})(ProjectDetailsView);

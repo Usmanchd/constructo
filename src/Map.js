@@ -22,7 +22,7 @@ class Map extends Component {
 
     const key = remoteConfig.getValue('GOOGLE_MAP_KEY');
 
-    const loc = this.props.location || 'Lahore';
+    const loc = this.props.location || 'New York';
     axios
       .get(
         `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
@@ -41,7 +41,41 @@ class Map extends Component {
       });
   };
   componentWillReceiveProps = nextProps => {
-    if (nextProps.location === '') return;
+    if (
+      nextProps.location === '' &&
+      (nextProps.lat === '' || nextProps.lng === '')
+    )
+      return;
+    else if (nextProps.location === '') {
+      console.log(nextProps);
+      this.setState({
+        ...this.state,
+        // center: { lat, lng },
+        loading: false,
+        lat: nextProps.lat,
+        lng: nextProps.lng
+      });
+      return;
+    } else if (nextProps.lat) {
+      console.log(nextProps);
+      this.setState({
+        ...this.state,
+        // center: { lat, lng },
+        loading: false,
+        lat: nextProps.lat,
+        lng: nextProps.lng
+      });
+      return;
+    } else if (this.props.location === nextProps.location) {
+      this.setState({
+        ...this.state,
+        // center: { lat, lng },
+        loading: false,
+        lat: nextProps.lat,
+        lng: nextProps.lng
+      });
+      return;
+    }
     const loc = nextProps.location;
     console.log(loc);
     axios
@@ -59,6 +93,7 @@ class Map extends Component {
           lat,
           lng
         });
+        console.log(this.state);
       });
   };
 
@@ -69,17 +104,13 @@ class Map extends Component {
       lat: 59.955413,
       lng: 30.337844
     },
-    zoom: 10,
+    zoom: 14,
     loading: false,
     key: null,
     location: this.props.location || ''
   };
 
   render() {
-    const handleMarker = (lat, lng) => {
-      if (this.props.mode !== 'view')
-        this.setState({ ...this.state, lng, lat });
-    };
     const mapOptions = {
       fullscreenControl: false
     };
@@ -96,7 +127,7 @@ class Map extends Component {
             defaultCenter={this.state.center}
             center={this.state.center}
             defaultZoom={this.state.zoom}
-            onClick={({ lat, lng }) => handleMarker(lat, lng)}
+            onClick={({ lat, lng }) => this.props.handleMarker(lat, lng)}
             options={mapOptions}
           >
             <Marker

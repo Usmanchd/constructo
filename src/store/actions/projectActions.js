@@ -65,18 +65,38 @@ export const getAllProjects = ID => (dispatch, getState, { getFirestore }) => {
     });
 };
 
-export const getThisProject = ID => (dispatch, getState, { getFirestore }) => {
+export const getThisProject = ID => async (
+  dispatch,
+  getState,
+  { getFirestore }
+) => {
   dispatch({ type: 'P_LOADING' });
   const firestore = getFirestore();
-
   firestore
     .collection('projects')
     .where('ID', '==', ID)
     .get()
     .then(_project => {
       const project = _project.docs.map(doc => doc.data());
-      console.log(project[0]);
-      dispatch({ type: 'GET_THIS_PROJECT', payload: { ...project[0] } });
+      let viewUser = [];
+      firestore
+        .collection('users')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            let temp = doc.data();
+            let newUser = project[0].user.filter(_user => _user === temp.ID);
+            if (newUser.length !== 0) viewUser = [...viewUser, { ...temp }];
+
+            console.log(viewUser);
+          });
+
+          dispatch({
+            type: 'GET_THIS_PROJECT',
+            payload: { project: { ...project[0] }, viewUser: viewUser }
+          });
+          console.log('after');
+        });
     });
 };
 

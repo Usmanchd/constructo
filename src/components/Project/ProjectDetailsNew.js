@@ -7,6 +7,7 @@ import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { createProject } from '../../store/actions/projectActions';
+import getIsoCode from '../isolocale';
 
 import Map from '../../Map';
 
@@ -25,7 +26,9 @@ class ProjectDetailsNew extends Component {
     createdAt: '',
     lastupdate: '',
     estimatestart: '',
-    estimatend: ''
+    estimatend: '',
+    lat: '',
+    lng: ''
   };
 
   handleChange = e => {
@@ -45,27 +48,28 @@ class ProjectDetailsNew extends Component {
       this.state.projectDescription === '' ||
       this.state.createdby === ''
     ) {
-      alert(
-        'Please Fill in All Details<br />Will Replaced with a suitable model/popup'
-      );
+      alert('Please Fill in All Details');
       this.props.history.push('/project-details/create-project');
       return;
     }
 
     axios
       .get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${this.state.location}&key=7df9f26d51b54e36816ec50664d587c7`
+        `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
       )
       .then(res => {
         if (res.data.results[0] == undefined) return;
-        const { lat, lng } = res.data.results[0].geometry;
+        console.log(res.data);
+        const { lat, lng } = res.data.results[0].locations[0].latLng;
         let newstate = {
           ...this.state,
-          lat,
-          lng,
           user: [this.props.profile.ID],
           projectCreator: this.props.profile.ID
         };
+        if (this.state.lat === '' || this.state.lng === '') {
+          newstate.lat = lat;
+          newstate.lng = lng;
+        }
         console.log(newstate);
         this.props.createProject(newstate);
         this.props.history.push('/list');
@@ -88,11 +92,36 @@ class ProjectDetailsNew extends Component {
       });
   };
 
-
-  
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
+
+    const handleMarker = (lat, lng) => {
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/reverse?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+        )
+        .then(res => {
+          if (res.data.results[0] == undefined) return;
+          console.log(res.data);
+          const {
+            street,
+            adminArea3,
+            postalCode,
+            adminArea5
+          } = res.data.results[0].locations[0];
+          this.setState({
+            ...this.state,
+            lng,
+            lat,
+            street,
+            state: adminArea3,
+            zip: postalCode,
+            city: adminArea5,
+            location: `${street} ${adminArea5} ${postalCode}`
+          });
+        });
+    };
 
     return (
       <div>
@@ -269,7 +298,13 @@ class ProjectDetailsNew extends Component {
                 />
               </div>
               <div className="map">
-                <Map location={this.state.location} mode="new" />
+                <Map
+                  location={this.state.location}
+                  lat={this.state.lat}
+                  lng={this.state.lng}
+                  handleMarker={handleMarker}
+                  mode="new"
+                />
               </div>
             </form>
           </div>
@@ -323,7 +358,7 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   // value={this.state.street}
-
+                  placeholder="Used"
                   disabled
                   // onChange={this.handleChange}
                 />
@@ -333,7 +368,7 @@ class ProjectDetailsNew extends Component {
                   type="text"
                   id="street"
                   // value={this.state.street}
-
+                  placeholder="Used"
                   disabled
                   // onChange={this.handleChange}
                 />
