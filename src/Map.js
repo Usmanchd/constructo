@@ -103,6 +103,10 @@ class Map extends Component {
       lat: '',
       lng: ''
     },
+    center: {
+      lat: '74',
+      lng: '30'
+    },
     zoom: 14,
     loading: false,
     key: null,
@@ -114,7 +118,7 @@ class Map extends Component {
       fullscreenControl: false
     };
     console.log(this.state);
-
+    console.log(process.env.GOOGLE_MAP_KEY);
     return (
       <div style={{ height: '280px', width: '100%' }}>
         {this.state.loading || this.state.key === null ? (
@@ -124,7 +128,7 @@ class Map extends Component {
             bootstrapURLKeys={{
               key: process.env.GOOGLE_MAP_KEY
             }}
-            // defaultCenter={this.state.center}
+            defaultCenter={this.state.dcenter}
             center={this.state.center}
             defaultZoom={this.state.zoom}
             onClick={({ lat, lng }) => this.props.handleMarker(lat, lng)}
