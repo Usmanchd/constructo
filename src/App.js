@@ -11,10 +11,10 @@ import SignUpP2 from './components/auth/SignUpP2';
 import { connect } from 'react-redux';
 import * as ROUTES from './constants/routes';
 import ClipLoader from 'react-spinners/ClipLoader';
-import ProjectDetails from './components/Project/ProjectDetails';
 
 class App extends Component {
   render() {
+    console.log(this.props);
     if (this.props.loading) {
       return (
         <div
@@ -54,7 +54,9 @@ class App extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loading: state.auth.loading
+    loading: state.auth.loading,
+    profile: state.firebase.profile,
+    auth: state.firebase.auth
   };
 };
 

@@ -21,46 +21,45 @@ class Map extends Component {
     const remoteConfig = firebase.remoteConfig();
 
     const key = remoteConfig.getValue('GOOGLE_MAP_KEY');
-
-    const loc = this.props.location || 'New York';
-    axios
-      .get(
-        `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
-      )
-      .then(res => {
-        const { lat, lng } = res.data.results[0].locations[0].latLng;
-        console.log(lat, lng);
-        this.setState({
-          ...this.state,
-          center: { lat, lng },
-          loading: false,
-          lat,
-          lng,
-          key: key._value
-        });
-      });
+    //   if (this.props.lat) {
+    //     this.setState({
+    //       ...this.state,
+    //       center: { lat: this.props.lat, lng: this.props.lng },
+    //       loading: false,
+    //       lat: this.props.lat,
+    //       lng: this.props.lng,
+    //       key: key._value
+    //     });
+    //   }
+    this.setState({
+      ...this.state,
+      key: key._value
+    });
   };
+
+  // componentWillUnmount = () => {
+  //   if (this.props.lat) {
+  //     console.log(this.props.lat);
+  //     this.setState({
+  //       ...this.state,
+  //       center: { lat: this.props.lat, lng: this.props.lng },
+  //       loading: false,
+  //       lat: this.props.lat,
+  //       lng: this.props.lng
+  //     });
+  //   }
+  // };
+
   componentWillReceiveProps = nextProps => {
     if (
       nextProps.location === '' &&
       (nextProps.lat === '' || nextProps.lng === '')
     )
       return;
-    else if (nextProps.location === '') {
-      console.log(nextProps);
+    else if (nextProps.lat) {
       this.setState({
         ...this.state,
-        // center: { lat, lng },
-        loading: false,
-        lat: nextProps.lat,
-        lng: nextProps.lng
-      });
-      return;
-    } else if (nextProps.lat) {
-      console.log(nextProps);
-      this.setState({
-        ...this.state,
-        // center: { lat, lng },
+        center: { lat: nextProps.lat, lng: nextProps.lng },
         loading: false,
         lat: nextProps.lat,
         lng: nextProps.lng
@@ -75,45 +74,46 @@ class Map extends Component {
         lng: nextProps.lng
       });
       return;
-    }
-    const loc = nextProps.location;
-    console.log(loc);
-    axios
-      .get(
-        `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
-      )
-      .then(res => {
-        if (res.data.results[0] == undefined) return;
-        const { lat, lng } = res.data.results[0].locations[0].latLng;
-        console.log(lat, lng);
-        this.setState({
-          ...this.state,
-          center: { lat, lng },
-          loading: false,
-          lat,
-          lng
+    } else {
+      const loc = nextProps.location;
+
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
+        )
+        .then(res => {
+          if (res.data.results[0] === undefined) return;
+          const { lat, lng } = res.data.results[0].locations[0].latLng;
+
+          this.setState({
+            ...this.state,
+            center: { lat, lng },
+            loading: false,
+            lat,
+            lng
+          });
         });
-        console.log(this.state);
-      });
+    }
   };
 
   state = {
     lng: null,
     lat: null,
     center: {
-      lat: 59.955413,
-      lng: 30.337844
+      lat: '',
+      lng: ''
     },
     zoom: 14,
     loading: false,
     key: null,
-    location: this.props.location || ''
+    location: ''
   };
 
   render() {
     const mapOptions = {
       fullscreenControl: false
     };
+    console.log(this.state);
 
     return (
       <div style={{ height: '280px', width: '100%' }}>
@@ -122,9 +122,9 @@ class Map extends Component {
         ) : (
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: process.env.GOOGLE_MAP_KEY || this.state.key
+              key: process.env.GOOGLE_MAP_KEY
             }}
-            defaultCenter={this.state.center}
+            // defaultCenter={this.state.center}
             center={this.state.center}
             defaultZoom={this.state.zoom}
             onClick={({ lat, lng }) => this.props.handleMarker(lat, lng)}

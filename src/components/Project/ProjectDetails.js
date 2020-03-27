@@ -2,23 +2,22 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { Redirect, Link } from 'react-router-dom';
-import ProjectDetailsNew from './ProjectDetailsNew';
+import { Redirect } from 'react-router-dom';
+
 import ProjectDetailsView from './ProjectDetailsView';
+
+import ClipLoader from 'react-spinners/ClipLoader';
 
 class ProjectDetails extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-    // if (this.props.match.params.id === 'create-project') {
-    //   return <ProjectDetailsNew {...this.props} />;
-    // } else {
-      return (
-        <ProjectDetailsView id={this.props.match.params.id} {...this.props} />
-      );
-    }
+
+    return (
+      <ProjectDetailsView id={this.props.match.params.id} {...this.props} />
+    );
   }
-// }
+}
 
 const mapStateToProps = state => {
   return {

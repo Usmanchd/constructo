@@ -31,7 +31,7 @@ const Navbar = props => {
         <Link to="/" className="brand-logo">
           <h5>Constructo</h5>
         </Link>
-        <label for="show-menu" class="show-menu">
+        <label htmlFor="show-menu" className="show-menu">
           Show Menu
         </label>
         <input type="checkbox" id="show-menu" role="button" />

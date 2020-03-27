@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import ClipLoader from 'react-spinners/ClipLoader';
 
@@ -15,9 +15,9 @@ import axios from 'axios';
 import {
   updateProject,
   getThisProject,
-  createProject
+  createProject,
+  deleteProject
 } from '../../store/actions/projectActions';
-import firebase from '../../config/fbConfig';
 import Map from '../../Map';
 
 class ProjectDetailsView extends Component {
@@ -35,19 +35,21 @@ class ProjectDetailsView extends Component {
     lastupdate: '',
     estimatestart: '',
     estimatend: '',
+    user: [],
     lat: '',
     lng: '',
     flag: false
   };
   componentDidMount = () => {
-    console.log(this.props.profile);
     if (this.props.match.params.id === 'create-project')
       this.setState({
         ...this.state,
         createdby: this.props.profile.Name,
         flag: true
       });
-    else this.props.getThisProject(this.props.id);
+    else {
+      this.props.getThisProject(this.props.id);
+    }
   };
 
   componentDidUpdate = prevProps => {
@@ -79,34 +81,49 @@ class ProjectDetailsView extends Component {
 
       return;
     }
-    let newState = { ...this.state };
-    delete newState.flag;
+
     if (this.props.match.params.id === 'create-project') {
       axios
         .get(
           `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
         )
         .then(res => {
-          if (res.data.results[0].location[0] == undefined) return;
-          console.log(res.data);
+          if (res.data.results === undefined) return;
+
           const { lat, lng } = res.data.results[0].locations[0].latLng;
           let newstate = {
             ...this.state,
             user: [this.props.profile.ID],
             projectCreator: this.props.profile.ID
           };
+          delete newstate.flag;
           if (this.state.lat === '' || this.state.lng === '') {
-            newstate.lat = lat;
-            newstate.lng = lng;
+            newstate.lat = lat.toString();
+            newstate.lng = lng.toString();
           }
           if (this.state.createdby === undefined)
             newstate.createdby = this.props.profile.Name;
-          console.log(newstate);
+
           this.props.createProject(newstate);
           this.props.history.push('/list');
         });
     } else {
-      this.props.updateProject(newState);
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+        )
+        .then(res => {
+          if (res.data === undefined) return;
+
+          const { lat, lng } = res.data.results[0].locations[0].latLng;
+          let newstate = { ...this.state };
+          delete newstate.flag;
+          if (this.state.lat === '' || this.state.lng === '') {
+            newstate.lat = lat.toString();
+            newstate.lng = lng.toString();
+          }
+          this.props.updateProject(newstate);
+        });
     }
 
     this.setState({ flag: false });
@@ -117,23 +134,30 @@ class ProjectDetailsView extends Component {
     return date.toString();
   };
 
-  render() {
-    const { auth } = this.props;
-    if (!auth.uid) return <Redirect to="/signin" />;
-    // console.log(this.props.id);
-    // console.log(this.props.project);
-    // console.log(this.state);
-    console.log(this.props.viewUser);
+  handleDeleteProject = () => {
+    if (this.props.project.projectCreator === this.props.profile.ID) {
+      this.props.deleteProject(this.props.project.ID);
+      this.props.history.push('/list');
+    }
+  };
 
+  render() {
+    const { auth, profile } = this.props;
+    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!profile.isEmpty && this.props.match.params.id !== 'create-project') {
+      if (!profile.projects.includes(this.props.id))
+        return <Redirect to="/list" />;
+    }
     const handleMarker = (lat, lng) => {
+      console.log(lat, lng);
       if (this.state.flag === false) return;
       axios
         .get(
           `http://open.mapquestapi.com/geocoding/v1/reverse?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
         )
         .then(res => {
-          if (res.data.results[0] == undefined) return;
-          console.log(res.data);
+          if (res.data.results[0] === undefined) return;
+
           const {
             street,
             adminArea3,
@@ -152,7 +176,7 @@ class ProjectDetailsView extends Component {
           });
         });
     };
-
+    console.log(this.state);
     if (this.props.loading) {
       return (
         <div
@@ -203,6 +227,12 @@ class ProjectDetailsView extends Component {
                       ? 'Save'
                       : 'Update'}
                   </button>
+                  <button
+                    className="btn-det btn waves-effect"
+                    onClick={() => this.props.getThisProject(this.props.id)}
+                  >
+                    Discard Changes
+                  </button>
                 </span>
               ) : (
                 <span>
@@ -221,10 +251,10 @@ class ProjectDetailsView extends Component {
           <div className="details-grid-wrapper">
             <div className="grid">
               <h5>General</h5>
-              <form id="det-form" onSubmit={e => e.preventDefault()}>
-                <div class="input-field">
+              <form className="det-form" onSubmit={e => e.preventDefault()}>
+                <div className="input-field">
                   <p
-                    for="name"
+                    htmlFor="name"
                     style={{
                       margin: '25px 0 0 0',
                       padding: '0',
@@ -386,10 +416,10 @@ class ProjectDetailsView extends Component {
 
             <div className="grid">
               <h5>Management</h5>
-              <form id="det-form" onSubmit={e => e.preventDefault()}>
-                <div class="input-field col s12">
+              <form className="det-form" onSubmit={e => e.preventDefault()}>
+                <div className="input-field col s12">
                   <p
-                    for="name"
+                    htmlFor="name"
                     style={{
                       margin: '25px 0 0 0',
                       padding: '0',
@@ -401,25 +431,23 @@ class ProjectDetailsView extends Component {
 
                   <input
                     disabled={!this.state.flag}
-                    style={{ fontWeight: 'bolder' }}
                     type="date"
                     id="estimatestart"
                     name="trip-start"
                     value={this.state.estimatestart}
                     onChange={this.handleChange}
-                    style={{ color: 'white' }}
+                    style={{ color: 'white', fontWeight: 'bolder' }}
                   />
                 </div>
-                <div class="input-field col s12">
+                <div className="input-field col s12">
                   <input
                     disabled={!this.state.flag}
-                    style={{ fontWeight: 'bolder' }}
                     type="date"
                     id="estimatend"
-                    name="trip-start"
+                    name="trip-end"
                     value={this.state.estimatend}
                     onChange={this.handleChange}
-                    style={{ color: 'white' }}
+                    style={{ color: 'white', fontWeight: 'bolder' }}
                   />
                 </div>
                 <div className="input-field">
@@ -435,13 +463,11 @@ class ProjectDetailsView extends Component {
 
                   <input
                     disabled
-                    style={{ fontWeight: 'bolder' }}
                     type="text"
                     id="spaceUsed"
                     placeholder="Used"
                     // value={this.state.street}
                     required
-                    disabled
                     style={{ fontWeight: 'bolder' }}
                     // onChange={this.handleChange}
                   />
@@ -455,8 +481,6 @@ class ProjectDetailsView extends Component {
                     placeholder="Available"
                     // value={this.state.street}
                     required
-                    disabled
-                    style={{ fontWeight: 'bolder' }}
                     // onChange={this.handleChange}
                   />
                 </div>
@@ -524,9 +548,9 @@ class ProjectDetailsView extends Component {
                   >
                     Request More Users
                   </button>
-                  <div class="input-field col s12">
+                  <div className="input-field col s12">
                     <p
-                      for="name"
+                      htmlFor="name"
                       style={{
                         margin: '25px 0 0 0',
                         padding: '0',
@@ -544,10 +568,10 @@ class ProjectDetailsView extends Component {
             </div>
             <div className="grid">
               <h5>Settings</h5>
-              <form id="det-form" onSubmit={e => e.preventDefault()}>
-                <div class="input-field col s12">
+              <form className="det-form" onSubmit={e => e.preventDefault()}>
+                <div className="input-field col s12">
                   <p
-                    for="name"
+                    htmlFor="name"
                     style={{
                       margin: '25px 0 0 0',
                       padding: '0',
@@ -622,11 +646,21 @@ class ProjectDetailsView extends Component {
                   <br />
                   <button
                     className="btn-det btn waves-effect"
+                    disabled={
+                      !this.state.flag &&
+                      this.props.match.params.id !== 'create-project'
+                    }
                     style={{
                       margin: '15px 25px',
                       fontSize: '10px',
                       padding: '0 5px',
                       width: '80%'
+                    }}
+                    onClick={() => {
+                      this.setState({
+                        ...this.state,
+                        active: !this.state.active
+                      });
                     }}
                   >
                     Activate/Deactivate
@@ -682,6 +716,7 @@ class ProjectDetailsView extends Component {
                       padding: '0 5px',
                       width: '80%'
                     }}
+                    onClick={this.handleDeleteProject}
                   >
                     Delete
                   </button>
@@ -708,5 +743,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   updateProject,
   getThisProject,
-  createProject
+  createProject,
+  deleteProject
 })(ProjectDetailsView);

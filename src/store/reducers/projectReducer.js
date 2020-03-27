@@ -6,7 +6,6 @@ const initState = {
 };
 
 const projectReducer = (state = initState, action) => {
-  console.log(action.payload)
   switch (action.type) {
     case 'PROJECTS':
       return { ...state, projects: [...action.payload], loading: false };
@@ -26,6 +25,13 @@ const projectReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false
+      };
+    case 'DELETE_PROJECT':
+      return {
+        ...state,
+        projects: state.projects.filter(
+          project => project.ID !== action.payload
+        )
       };
     default:
       return state;

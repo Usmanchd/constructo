@@ -72,6 +72,15 @@ hr {
   color: white !important;
 }
 
+.btn-det:disabled,
+.btn-det[disabled] {
+  margin-right: 5px;
+  border-radius: 10px;
+  background-color: #282832 !important;
+  border: 1px solid #fbd800 !important;
+  color: white !important;
+}
+
 .btn-det:hover {
   background-color: #fbd800 !important;
   color: black !important;
@@ -93,21 +102,21 @@ hr {
   text-align: center;
 }
 
-#det-form {
+.det-form {
   margin: 15px;
 }
 
-#det-form .input-field {
+.det-form .input-field {
   margin: 12px;
 
   height: 50px;
 }
-#det-form input[type='text'] {
+.det-form input[type='text'] {
   padding: 0px;
 }
-#det-form input[type='text'],
-#det-form input[type='email'],
-#det-form input[type='password'],
+.det-form input[type='text'],
+.det-form input[type='email'],
+.det-form input[type='password'],
 textarea.materialize-textarea {
   color: white !important;
   /* border-right: 1px solid #9c9c9d !important;
@@ -115,10 +124,10 @@ textarea.materialize-textarea {
   border-radius: 0px 20px 20px 0px !important;
   transition: all 0.3s linear 0s !important; */
 }
-#det-form input[type='text']:not(.browser-default):focus:not([readonly]),
-#det-form input[type='email']:not(.browser-default):focus:not([readonly]),
-#det-form input[type='password']:not(.browser-default):focus:not([readonly]),
-#det-form textarea.materialize-textarea:focus:not([readonly]) {
+.det-form input[type='text']:not(.browser-default):focus:not([readonly]),
+.det-form input[type='email']:not(.browser-default):focus:not([readonly]),
+.det-form input[type='password']:not(.browser-default):focus:not([readonly]),
+.det-form textarea.materialize-textarea:focus:not([readonly]) {
   color: white !important;
   border-color: var(--main-logo-color);
   box-shadow: none;
@@ -127,28 +136,28 @@ textarea.materialize-textarea {
   border-bottom: 1px solid var(--main-logo-color) !important; */
 }
 
-#det-form
+.det-form
   input[type='text']:not(.browser-default):focus:not([readonly])
   + label,
-#det-form textarea.materialize-textarea:focus:not([readonly]) + label,
-#det-form
+.det-form textarea.materialize-textarea:focus:not([readonly]) + label,
+.det-form
   input[type='email']:not(.browser-default):focus:not([readonly])
   + label,
-#det-form
+.det-form
   input[type='password']:not(.browser-default):focus:not([readonly])
   + label {
   background-color: transparent !important;
   color: #ec407a !important;
 }
-#det-form label {
+.det-form label {
   color: white !important;
 }
-#det-form input:-webkit-autofill,
-#det-form input:-webkit-autofill:hover,
-#det-form input:-webkit-autofill:focus,
-#det-form textarea:-webkit-autofill,
-#det-form textarea:-webkit-autofill:hover,
-#det-form textarea:-webkit-autofill:focus {
+.det-form input:-webkit-autofill,
+.det-form input:-webkit-autofill:hover,
+.det-form input:-webkit-autofill:focus,
+.det-form textarea:-webkit-autofill,
+.det-form textarea:-webkit-autofill:hover,
+.det-form textarea:-webkit-autofill:focus {
   color: white !important;
   -webkit-text-fill-color: white;
   box-shadow: 0 0 0px 1000px #282832 inset !important;
@@ -176,7 +185,7 @@ textarea.materialize-textarea {
     width: 60%;
     margin: auto;
   }
-  #det-form {
+  .det-form {
     margin: 0px;
   }
   .details-grid-wrapper .grid {
@@ -197,7 +206,7 @@ textarea.materialize-textarea {
     width: 90%;
     margin: auto;
   }
-  #det-form {
+  .det-form {
     margin: 0px;
   }
   .details-grid-wrapper .grid {

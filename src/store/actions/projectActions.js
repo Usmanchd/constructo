@@ -41,7 +41,7 @@ export const createProject = _newProject => async (
       querySnapshot.forEach(function(doc) {
         const user = doc.data();
         let p = user.projects;
-        p.push(_newProject.projectCreator);
+        p.push(newProject.ID);
 
         firestore
           .collection('users')
@@ -87,15 +87,12 @@ export const getThisProject = ID => async (
             let temp = doc.data();
             let newUser = project[0].user.filter(_user => _user === temp.ID);
             if (newUser.length !== 0) viewUser = [...viewUser, { ...temp }];
-
-            console.log(viewUser);
           });
 
           dispatch({
             type: 'GET_THIS_PROJECT',
             payload: { project: { ...project[0] }, viewUser: viewUser }
           });
-          console.log('after');
         });
     });
 };
@@ -120,4 +117,26 @@ export const updateProject = _updateProject => async (
       });
       dispatch(getThisProject(_updateProject.ID));
     });
+};
+
+export const deleteProject = ID => async (
+  dispatch,
+  getState,
+  { getFirestore }
+) => {
+  dispatch({ type: 'P_LOADING' });
+  const firestore = getFirestore();
+  firestore
+    .collection('projects')
+    .where('ID', '==', ID)
+    .get()
+    .then(querySnapshot =>
+      querySnapshot.forEach(doc =>
+        doc.ref
+          .delete()
+          .then(() => dispatch({ type: 'DELETE_PROJECT', payload: ID }))
+      )
+    );
+
+  console.log('deleteProject is called');
 };
