@@ -33,6 +33,7 @@ class Map extends Component {
     //   }
     this.setState({
       ...this.state,
+      center: { lat: this.props.lat, lng: this.props.lng },
       key: key._value
     });
   };
@@ -103,6 +104,10 @@ class Map extends Component {
       lng: 74.326297,
       lat: 31.519582
     },
+    dcenter: {
+      lng: 74.326297,
+      lat: 31.519582
+    },
 
     zoom: 14,
     loading: false,
@@ -123,7 +128,9 @@ class Map extends Component {
         ) : (
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: process.env.REACT_APP_GOOGLE_MAP_KEY
+              key:
+                process.env.REACT_APP_GOOGLE_MAP_KEY ||
+                'AIzaSyDvqSD7IVx8FkmKJ7kpHyxZzKpJ2HARMBw'
             }}
             defaultCenter={this.state.dcenter}
             center={this.state.center}

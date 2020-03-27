@@ -83,47 +83,68 @@ class ProjectDetailsView extends Component {
     }
 
     if (this.props.match.params.id === 'create-project') {
-      axios
-        .get(
-          `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
-        )
-        .then(res => {
-          if (res.data.results === undefined) return;
+      if (this.state.lat || this.state.lng) {
+        let newstate = {
+          ...this.state,
+          user: [this.props.profile.ID],
+          projectCreator: this.props.profile.ID
+        };
 
-          const { lat, lng } = res.data.results[0].locations[0].latLng;
-          let newstate = {
-            ...this.state,
-            user: [this.props.profile.ID],
-            projectCreator: this.props.profile.ID
-          };
-          delete newstate.flag;
-          if (this.state.lat === '' || this.state.lng === '') {
-            newstate.lat = lat;
-            newstate.lng = lng;
-          }
-          if (this.state.createdby === undefined)
-            newstate.createdby = this.props.profile.Name;
+        if (this.state.createdby === undefined)
+          newstate.createdby = this.props.profile.Name;
+          
+        delete newstate.flag;
+        this.props.createProject(newstate);
+        this.props.history.push('/list');
+      } else {
+        axios
+          .get(
+            `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+          )
+          .then(res => {
+            if (res.data.results === undefined) return;
 
-          this.props.createProject(newstate);
-          this.props.history.push('/list');
-        });
+            const { lat, lng } = res.data.results[0].locations[0].latLng;
+            let newstate = {
+              ...this.state,
+              user: [this.props.profile.ID],
+              projectCreator: this.props.profile.ID
+            };
+            delete newstate.flag;
+            if (this.state.lat === '' || this.state.lng === '') {
+              newstate.lat = lat;
+              newstate.lng = lng;
+            }
+            if (this.state.createdby === undefined)
+              newstate.createdby = this.props.profile.Name;
+
+            this.props.createProject(newstate);
+            this.props.history.push('/list');
+          });
+      }
     } else {
-      axios
-        .get(
-          `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
-        )
-        .then(res => {
-          if (res.data === undefined) return;
+      if (this.state.lat || this.state.lng) {
+        let newstate = { ...this.state };
+        delete newstate.flag;
+        this.props.updateProject(newstate);
+      } else {
+        axios
+          .get(
+            `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+          )
+          .then(res => {
+            if (res.data === undefined) return;
 
-          const { lat, lng } = res.data.results[0].locations[0].latLng;
-          let newstate = { ...this.state };
-          delete newstate.flag;
-          if (this.state.lat === '' || this.state.lng === '') {
-            newstate.lat = lat;
-            newstate.lng = lng;
-          }
-          this.props.updateProject(newstate);
-        });
+            const { lat, lng } = res.data.results[0].locations[0].latLng;
+            let newstate = { ...this.state };
+            delete newstate.flag;
+            if (this.state.lat === '' || this.state.lng === '') {
+              newstate.lat = lat;
+              newstate.lng = lng;
+            }
+            this.props.updateProject(newstate);
+          });
+      }
     }
 
     this.setState({ flag: false });
@@ -228,12 +249,12 @@ class ProjectDetailsView extends Component {
                       ? 'Save'
                       : 'Update'}
                   </button>
-                  <button
+                  {/* <button
                     className="btn-det btn waves-effect"
                     onClick={() => this.props.getThisProject(this.props.id)}
                   >
                     Discard Changes
-                  </button>
+                  </button> */}
                 </span>
               ) : (
                 <span>

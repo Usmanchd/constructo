@@ -22,7 +22,6 @@ export const createProject = _newProject => async (
     spaceUsed: null,
     userLimit: null,
     userUsed: null,
-    projectDescription: null,
     attendanceKy: null,
     backupPeriod: null,
     subscriptionPlan: null,
