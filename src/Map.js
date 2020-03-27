@@ -79,7 +79,7 @@ class Map extends Component {
 
       axios
         .get(
-          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
+          `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${loc}`
         )
         .then(res => {
           if (res.data.results[0] === undefined) return;
@@ -103,7 +103,7 @@ class Map extends Component {
       lat: '',
       lng: ''
     },
-    center: {
+    dcenter: {
       lat: '74',
       lng: '30'
     },

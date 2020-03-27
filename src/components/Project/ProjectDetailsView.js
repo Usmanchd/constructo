@@ -85,7 +85,7 @@ class ProjectDetailsView extends Component {
     if (this.props.match.params.id === 'create-project') {
       axios
         .get(
-          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+          `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
         )
         .then(res => {
           if (res.data.results === undefined) return;
@@ -110,7 +110,7 @@ class ProjectDetailsView extends Component {
     } else {
       axios
         .get(
-          `http://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
+          `https://open.mapquestapi.com/geocoding/v1/address?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${this.state.location}`
         )
         .then(res => {
           if (res.data === undefined) return;
