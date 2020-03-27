@@ -33,7 +33,6 @@ class Map extends Component {
     //   }
     this.setState({
       ...this.state,
-      center: { lat: this.props.lat, lng: this.props.lng },
       key: key._value
     });
   };
