@@ -124,7 +124,7 @@ class ProjectDetailsView extends Component {
       }
     } else {
       if (this.state.lat || this.state.lng) {
-        let newstate = { ...this.state };
+        let newstate = { ...this.state, lastupdate: Date.now() };
         delete newstate.flag;
         this.props.updateProject(newstate);
       } else {
