@@ -135,7 +135,7 @@ class ProjectDetailsView extends Component {
   };
 
   handleDeleteProject = () => {
-    if (this.props.match.params.id !== 'create-project') return;
+    if (this.props.match.params.id === 'create-project') return;
     if (this.props.project.projectCreator === this.props.profile.ID) {
       this.props.deleteProject(this.props.project.ID);
       this.props.history.push('/list');
