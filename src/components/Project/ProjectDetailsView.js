@@ -98,8 +98,8 @@ class ProjectDetailsView extends Component {
           };
           delete newstate.flag;
           if (this.state.lat === '' || this.state.lng === '') {
-            newstate.lat = lat.toString();
-            newstate.lng = lng.toString();
+            newstate.lat = lat;
+            newstate.lng = lng;
           }
           if (this.state.createdby === undefined)
             newstate.createdby = this.props.profile.Name;
@@ -119,8 +119,8 @@ class ProjectDetailsView extends Component {
           let newstate = { ...this.state };
           delete newstate.flag;
           if (this.state.lat === '' || this.state.lng === '') {
-            newstate.lat = lat.toString();
-            newstate.lng = lng.toString();
+            newstate.lat = lat;
+            newstate.lng = lng;
           }
           this.props.updateProject(newstate);
         });
@@ -153,7 +153,7 @@ class ProjectDetailsView extends Component {
       if (this.state.flag === false) return;
       axios
         .get(
-          `http://open.mapquestapi.com/geocoding/v1/reverse?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
+          `https://open.mapquestapi.com/geocoding/v1/reverse?key=8BMAbnYiw1lNi8wGGywrZzYwkoT3SrwT&location=${lat},${lng}&includeRoadMetadata=true&includeNearestIntersection=true`
         )
         .then(res => {
           if (res.data.results[0] === undefined) return;

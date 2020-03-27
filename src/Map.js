@@ -100,13 +100,10 @@ class Map extends Component {
     lng: null,
     lat: null,
     center: {
-      lat: '',
-      lng: ''
+      lng: 74.326297,
+      lat: 31.519582
     },
-    dcenter: {
-      lat: '74',
-      lng: '30'
-    },
+
     zoom: 14,
     loading: false,
     key: null,
