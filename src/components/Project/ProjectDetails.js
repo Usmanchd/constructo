@@ -6,7 +6,6 @@ import { Redirect } from 'react-router-dom';
 
 import ProjectDetailsView from './ProjectDetailsView';
 
-import ClipLoader from 'react-spinners/ClipLoader';
 
 class ProjectDetails extends Component {
   render() {

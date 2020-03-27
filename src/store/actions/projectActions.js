@@ -136,6 +136,4 @@ export const deleteProject = ID => async (
           .then(() => dispatch({ type: 'DELETE_PROJECT', payload: ID }))
       )
     );
-
-  console.log('deleteProject is called');
 };

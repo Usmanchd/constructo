@@ -16,7 +16,6 @@ class Dashboard extends Component {
   render() {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-    console.log(`${this.props.match.path}list`, 'hello');
     return (
       <div className="landing-page">
         <Switch>

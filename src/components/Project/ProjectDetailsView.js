@@ -92,7 +92,7 @@ class ProjectDetailsView extends Component {
 
         if (this.state.createdby === undefined)
           newstate.createdby = this.props.profile.Name;
-          
+
         delete newstate.flag;
         this.props.createProject(newstate);
         this.props.history.push('/list');
@@ -171,7 +171,6 @@ class ProjectDetailsView extends Component {
         return <Redirect to="/list" />;
     }
     const handleMarker = (lat, lng) => {
-      console.log(lat, lng);
       if (this.state.flag === false) return;
       axios
         .get(
@@ -198,7 +197,7 @@ class ProjectDetailsView extends Component {
           });
         });
     };
-    console.log(this.state);
+
     if (this.props.loading) {
       return (
         <div

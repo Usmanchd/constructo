@@ -14,7 +14,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 
 class App extends Component {
   render() {
-    console.log(this.props);
+
     if (this.props.loading) {
       return (
         <div

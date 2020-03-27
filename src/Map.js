@@ -21,34 +21,12 @@ class Map extends Component {
     const remoteConfig = firebase.remoteConfig();
 
     const key = remoteConfig.getValue('GOOGLE_MAP_KEY');
-    //   if (this.props.lat) {
-    //     this.setState({
-    //       ...this.state,
-    //       center: { lat: this.props.lat, lng: this.props.lng },
-    //       loading: false,
-    //       lat: this.props.lat,
-    //       lng: this.props.lng,
-    //       key: key._value
-    //     });
-    //   }
+
     this.setState({
       ...this.state,
       key: key._value
     });
   };
-
-  // componentWillUnmount = () => {
-  //   if (this.props.lat) {
-  //     console.log(this.props.lat);
-  //     this.setState({
-  //       ...this.state,
-  //       center: { lat: this.props.lat, lng: this.props.lng },
-  //       loading: false,
-  //       lat: this.props.lat,
-  //       lng: this.props.lng
-  //     });
-  //   }
-  // };
 
   componentWillReceiveProps = nextProps => {
     if (
@@ -118,8 +96,7 @@ class Map extends Component {
     const mapOptions = {
       fullscreenControl: false
     };
-    console.log(this.state);
-    console.log(process.env.GOOGLE_MAP_KEY);
+
     return (
       <div style={{ height: '280px', width: '100%' }}>
         {this.state.loading || this.state.key === null ? (
