@@ -648,7 +648,7 @@ class ProjectDetailsView extends Component {
                     style={{ fontWeight: 'bolder' }}
                     type="text"
                     id="lastupdate"
-                    value={this.state.lastupdate}
+                    value={this.getDate(this.state.lastupdate)}
                     required
                     onChange={this.handleChange}
                   />
