@@ -5,11 +5,17 @@
   font-family: 'Poppins', sans-serif;
 }
 
+input,
+textarea,
+select {
+  font-family: 'Poppins', sans-serif;
+}
+
 .mycontainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  sheight: 100vh;
   background-color: #1e1e28;
   width: 100%;
 }
@@ -59,8 +65,12 @@ textarea.materialize-textarea {
 
 #regform input[type='text']:not(.browser-default):focus:not([readonly]) + label,
 #regform textarea.materialize-textarea:focus:not([readonly]) + label,
-#regform input[type='email']:not(.browser-default):focus:not([readonly]) + label,
-#regform input[type='password']:not(.browser-default):focus:not([readonly]) + label {
+#regform
+  input[type='email']:not(.browser-default):focus:not([readonly])
+  + label,
+#regform
+  input[type='password']:not(.browser-default):focus:not([readonly])
+  + label {
   background-color: transparent !important;
   color: #ec407a !important;
 }

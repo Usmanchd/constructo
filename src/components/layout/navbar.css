@@ -6,9 +6,11 @@
   height: 50px;
 }
 .nav a h5 {
+  font-family: 'Homemade Apple', cursive;
   margin: 12px;
   color: #fbd800;
 }
+
 .menu {
   list-style-type: none;
   margin: 0;
