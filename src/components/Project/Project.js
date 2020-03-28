@@ -26,10 +26,10 @@ class Project extends Component {
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, profile, loading } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
-
-    if (this.props.loading) {
+    console.log(profile);
+    if (loading || profile.isEmpty) {
       return (
         <div
           style={{
