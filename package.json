@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@firebase/analytics": "^0.2.18",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "firebase": "^7.12.0",
     "google-map-react": "^1.1.7",
     "react": "0.0.0-d28bd2994",
